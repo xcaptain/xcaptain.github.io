@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     url: 'https://alxshelepenok.github.com/gatsby-starter-lumen',
     title: 'Blog by Joey Xie',
-    subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    subtitle: '日拱一卒.',
     copyright: '© All rights reserved.',
     disqusShortname: '',
     menu: [

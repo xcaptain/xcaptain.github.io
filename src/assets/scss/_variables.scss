@@ -28,10 +28,10 @@ $typographic-link-s-font-color: $color-secondary;
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
 // Layout
-$layout-post-single-max-width: 945px;
+$layout-post-single-max-width: 1170px;
 $layout-post-single-width: $layout-post-single-max-width - 305px;
 
-$layout-width: 1070px;
+$layout-width: 1280px;
 $layout-breakpoint-sm: 685px;
 $layout-breakpoint-md: 960px;
 $layout-breakpoint-lg: 1100px;
