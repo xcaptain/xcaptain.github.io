@@ -4,7 +4,7 @@ date: "2017-11-11 01:00:00"
 layout: post
 draft: false
 path: "/posts/elasticsearch-learning-basics/"
-category: "elasticsearch"
+category: "Elasticsearch"
 tags:
   - "Elasticsearch"
   - "Programming"
