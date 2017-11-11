@@ -27,7 +27,7 @@ module.exports = {
       name: 'Joey Xie',
       email: 'joey.xf@gmail.com',
       telegram: '#',
-      twitter: 'joey_xf',
+      twitter: 'xf_joey',
       github: 'xcaptain',
       rss: '#',
       vk: '#'
