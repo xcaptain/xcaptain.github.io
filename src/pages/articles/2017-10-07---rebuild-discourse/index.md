@@ -8,6 +8,7 @@ category: "Discourse"
 tags:
   - "Programming"
   - "Web Development"
+  - "Ruby"
 description: "重新部署discourse"
 ---
 
