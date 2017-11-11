@@ -13,6 +13,14 @@ module.exports = {
       {
         label: 'About me',
         path: '/about/'
+      },
+      {
+        label: 'Tags',
+        path: '/tags/'
+      },
+      {
+        label: 'Categories',
+        path: '/categories/'
       }
     ],
     author: {
