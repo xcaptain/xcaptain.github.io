@@ -1,6 +1,6 @@
 ---
 title: 自定义键盘布局
-date: "2013-04-19"
+date: "2014-08-25"
 layout: post
 draft: false
 path: "/posts/customize-keyboard-layout/"
