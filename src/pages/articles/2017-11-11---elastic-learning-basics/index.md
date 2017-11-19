@@ -56,16 +56,22 @@ sudo systemctl start elasticsearch
 type中的一行记录
 
 ## 相关开发工具
-1. curl
+### curl
 
 使用curl来操作es，或者是其他http客户端
 
-2. elasticdump
+### elasticdump
 
 这个工具用来导出数据很方便，比如说把数据从一个索引导到另一个索引
 ```bash
 elasticdump --input=http://localhost:9200/jtcsm --output=http://localhost:9200/jtcsm_nlp --type=data
 ```
+
+### insomnia
+
+使用[insomnia](https://insomnia.rest/)来管理restapi
+elasticsearch的所有操作都是基于http api的，使用这个工具可以很方便的管理各种操作的api，比如说新建一个请求用来保存创建index的命令，新建一个请求用来保存创建mapping的命令，得益与insomnia强大的请求分类管理及导出功能，不用一行一行手动敲curl命令，或者是从记事本里复制出curl命令
+
 
 ## 查询语句
 查询语句比较复杂，慢慢看文档去吧
