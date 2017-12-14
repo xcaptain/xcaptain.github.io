@@ -7,7 +7,7 @@ path: "/posts/web-framework-benchmark-test/"
 category: "Web"
 tags:
   - "Web"
-description: "使用尺取法计算数组中最短连续子数组之和大于某个指定的数"
+description: "最近因为工作原因调研了几款PHP框架，现在主要来做个性能测试..."
 ---
 
 最近因为工作原因调研了几款PHP框架，现在主要来做个性能测试，看看不同框架在不同场景下各有什么优缺点，由于是性能测试，所以先一下我的环境配置:
