@@ -1,173 +1,160 @@
-const _ = require('lodash');
-const Promise = require('bluebird');
-const path = require('path');
-const lost = require('lost');
-const pxtorem = require('postcss-pxtorem');
-const slash = require('slash');
+//const webpack = require("webpack");
+const _ = require("lodash");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const path = require("path");
+const Promise = require("bluebird");
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
-  return new Promise((resolve, reject) => {
-    const postTemplate = path.resolve('./src/templates/post-template.js');
-    const pageTemplate = path.resolve('./src/templates/page-template.js');
-    const tagTemplate = path.resolve('./src/templates/tag-template.js');
-    const categoryTemplate = path.resolve('./src/templates/category-template.js');
-
-    graphql(
-      `
-    {
-      allMarkdownRemark(
-        limit: 1000,
-        filter: { frontmatter: { draft: { ne: true } } },
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              tags
-              layout
-              category
-            }
-          }
-        }
-      }
-    }
-  `
-    ).then((result) => {
-      if (result.errors) {
-        console.log(result.errors);
-        reject(result.errors);
-      }
-
-      _.each(result.data.allMarkdownRemark.edges, (edge) => {
-        if (_.get(edge, 'node.frontmatter.layout') === 'page') {
-          createPage({
-            path: edge.node.fields.slug,
-            component: slash(pageTemplate),
-            context: {
-              slug: edge.node.fields.slug
-            }
-          });
-        } else if (_.get(edge, 'node.frontmatter.layout') === 'post') {
-          createPage({
-            path: edge.node.fields.slug,
-            component: slash(postTemplate),
-            context: {
-              slug: edge.node.fields.slug
-            }
-          });
-
-          let tags = [];
-          if (_.get(edge, 'node.frontmatter.tags')) {
-            tags = tags.concat(edge.node.frontmatter.tags);
-          }
-
-          tags = _.uniq(tags);
-          _.each(tags, (tag) => {
-            const tagPath = `/tags/${_.kebabCase(tag)}/`;
-            createPage({
-              path: tagPath,
-              component: tagTemplate,
-              context: {
-                tag
-              }
-            });
-          });
-
-          let categories = [];
-          if (_.get(edge, 'node.frontmatter.category')) {
-            categories = categories.concat(edge.node.frontmatter.category);
-          }
-
-          categories = _.uniq(categories);
-          _.each(categories, (category) => {
-            const categoryPath = `/categories/${_.kebabCase(category)}/`;
-            createPage({
-              path: categoryPath,
-              component: categoryTemplate,
-              context: {
-                category
-              }
-            });
-          });
-        }
-      });
-
-      resolve();
-    });
-  });
-};
-
-exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
-  const { createNodeField } = boundActionCreators;
-
-  if (node.internal.type === 'File') {
-    const parsedFilePath = path.parse(node.absolutePath);
-    const slug = `/${parsedFilePath.dir.split('---')[1]}/`;
-    createNodeField({ node, name: 'slug', value: slug });
-  } else if (
-    node.internal.type === 'MarkdownRemark' &&
-    typeof node.slug === 'undefined'
-  ) {
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode });
     const fileNode = getNode(node.parent);
-    let slug = fileNode.fields.slug;
-    if (typeof node.frontmatter.path !== 'undefined') {
-      slug = node.frontmatter.path;
+    const source = fileNode.sourceInstanceName;
+    const separtorIndex = ~slug.indexOf("---") ? slug.indexOf("---") : 0;
+    const shortSlugStart = separtorIndex ? separtorIndex + 3 : 0;
+
+    if (source !== "parts") {
+      createNodeField({
+        node,
+        name: `slug`,
+        value: `${separtorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`
+      });
     }
     createNodeField({
       node,
-      name: 'slug',
-      value: slug
+      name: `prefix`,
+      value: separtorIndex ? slug.substring(1, separtorIndex) : ""
     });
-
-    if (node.frontmatter.tags) {
-      const tagSlugs = node.frontmatter.tags.map(
-        tag => `/tags/${_.kebabCase(tag)}/`
-      );
-      createNodeField({ node, name: 'tagSlugs', value: tagSlugs });
-    }
-
-    if (typeof node.frontmatter.category !== 'undefined') {
-      const categorySlug = `/categories/${_.kebabCase(node.frontmatter.category)}/`;
-      createNodeField({ node, name: 'categorySlug', value: categorySlug });
-    }
+    createNodeField({
+      node,
+      name: `source`,
+      value: source
+    });
   }
 };
 
-exports.modifyWebpackConfig = ({ config }) => {
-  config.merge({
-    postcss: [
-      lost(),
-      pxtorem({
-        rootValue: 16,
-        unitPrecision: 5,
-        propList: [
-          'font',
-          'font-size',
-          'line-height',
-          'letter-spacing',
-          'margin',
-          'margin-top',
-          'margin-left',
-          'margin-bottom',
-          'margin-right',
-          'padding',
-          'padding-top',
-          'padding-left',
-          'padding-bottom',
-          'padding-right',
-          'border-radius',
-          'width',
-          'max-width'
-        ],
-        selectorBlackList: [],
-        replace: true,
-        mediaQuery: false,
-        minPixelValue: 0
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  return new Promise((resolve, reject) => {
+    const postTemplate = path.resolve("./src/templates/PostTemplate.js");
+    const pageTemplate = path.resolve("./src/templates/PageTemplate.js");
+    const categoryTemplate = path.resolve("./src/templates/CategoryTemplate.js");
+    resolve(
+      graphql(
+        `
+          {
+            allMarkdownRemark(
+              filter: { fields: { slug: { ne: null } } }
+              sort: { fields: [fields___prefix], order: DESC }
+              limit: 1000
+            ) {
+              edges {
+                node {
+                  id
+                  fields {
+                    slug
+                    prefix
+                    source
+                  }
+                  frontmatter {
+                    title
+                    category
+                  }
+                }
+              }
+            }
+          }
+        `
+      ).then(result => {
+        if (result.errors) {
+          console.log(result.errors);
+          reject(result.errors);
+        }
+
+        const items = result.data.allMarkdownRemark.edges;
+
+        // Create category list
+        const categorySet = new Set();
+        items.forEach(edge => {
+          const {
+            node: {
+              frontmatter: { category }
+            }
+          } = edge;
+
+          if (category && category !== null) {
+            categorySet.add(category);
+          }
+        });
+
+        // Create category pages
+        const categoryList = Array.from(categorySet);
+        categoryList.forEach(category => {
+          createPage({
+            path: `/category/${_.kebabCase(category)}/`,
+            component: categoryTemplate,
+            context: {
+              category
+            }
+          });
+        });
+
+        // Create posts
+        const posts = items.filter(item => item.node.fields.source === "posts");
+        posts.forEach(({ node }, index) => {
+          const slug = node.fields.slug;
+          const next = index === 0 ? undefined : posts[index - 1].node;
+          const prev = index === posts.length - 1 ? undefined : posts[index + 1].node;
+          const source = node.fields.source;
+
+          createPage({
+            path: slug,
+            component: postTemplate,
+            context: {
+              slug,
+              prev,
+              next,
+              source
+            }
+          });
+        });
+
+        // and pages.
+        const pages = items.filter(item => item.node.fields.source === "pages");
+        pages.forEach(({ node }) => {
+          const slug = node.fields.slug;
+          const source = node.fields.source;
+
+          createPage({
+            path: slug,
+            component: pageTemplate,
+            context: {
+              slug,
+              source
+            }
+          });
+        });
       })
-    ]
+    );
   });
+};
+
+exports.onCreateWebpackConfig = ({ stage, actions }, options) => {
+  switch (stage) {
+    case `build-javascript`:
+      actions.setWebpackConfig({
+        plugins: [
+          new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            reportFilename: "./report/treemap.html",
+            openAnalyzer: true,
+            logLevel: "error",
+            defaultSizes: "gzip"
+          })
+        ]
+      });
+  }
 };
