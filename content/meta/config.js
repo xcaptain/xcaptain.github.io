@@ -3,7 +3,7 @@ module.exports = {
   shortSiteTitle: "Joey's Blog focusing on internet", // <title> ending for posts and pages
   siteDescription: "专注与互联网技术",
   siteUrl: "https://blog.iyue.club/",
-  // pathPrefix: "",
+  pathPrefix: "/xcaptain.github.io",
   siteImage: "preview.jpg",
   siteLanguage: "zh",
 
