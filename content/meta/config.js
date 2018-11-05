@@ -2,8 +2,8 @@ module.exports = {
   siteTitle: "Joey's Blog", // <title>
   shortSiteTitle: "Joey's Blog focusing on internet", // <title> ending for posts and pages
   siteDescription: "专注与互联网技术",
-  siteUrl: "https://blog.iyue.club/",
-  pathPrefix: "/xcaptain.github.io",
+  siteUrl: "https://blog.iyue.club",
+  pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "zh",
 
