@@ -11,7 +11,7 @@ tags:
 
 ## 服务器配置(ubuntu 18.04)
 
-1.  安装 postgresql，截止目前的稳定版是 10
+1.  安装 postgresql，截止目前的稳定版是 11
 
     `apt install postgresql`
 
@@ -75,6 +75,34 @@ CREATE OR REPLACE FUNCTION update_changetimestamp_column() RETURNS TRIGGER AS $$
         RETURN NEW;
     END;
 $$ language plpgsql;
+```
+
+## 条件分组
+
+在group by语句中如果还要继续分组，可以用filter语句，以下建了一个简单的例子用来说明按comment_id分组，然后通过dir来过滤的用法，一条语句就能查出某个评论点赞点踩的数量
+
+```sql
+create table test (
+    user_id int,
+    comment_id int,
+    dir int
+);
+
+insert into test(user_id, comment_id, dir) values (1, 1, 1);
+insert into test(user_id, comment_id, dir) values (1, 2, -1);
+insert into test(user_id, comment_id, dir) values (1, 3, 1);
+insert into test(user_id, comment_id, dir) values (1, 4, 1);
+insert into test(user_id, comment_id, dir) values (2, 1, 1);
+insert into test(user_id, comment_id, dir) values (2, 2, 1);
+insert into test(user_id, comment_id, dir) values (2, 3, 1);
+insert into test(user_id, comment_id, dir) values (2, 4, -1);
+insert into test(user_id, comment_id, dir) values (3, 4, 1);
+insert into test(user_id, comment_id, dir) values (3, 3, 0);
+insert into test(user_id, comment_id, dir) values (4, 1, 0);
+
+select * from test where comment_id in (1,2);
+select comment_id, count(comment_id) filter (where dir=1) as up_votes, count(comment_id) filter (where dir=-1) as down_votes from test where comment_id in (1,2) group by comment_id;
+
 ```
 
 ## Go语言驱动
