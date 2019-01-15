@@ -3,7 +3,9 @@ title: 关于我
 menuTitle: 关于我
 ---
 
-数学系出身的程序员一枚，刚毕业时误入了互联网后端技术的坑（现在有转全栈的趋势)，目前在北京一家小的创业公司做技术总监
+数学系出身的程序员一枚，刚毕业时误入了互联网后端技术的坑，目前在北京一家小的创业公司做技术总监。我自己做了个网站[https://www.dailycodingpractice.com/](https://www.dailycodingpractice.com/) 用来磨练自己的技能同时也希望能帮助到其他程序员，我在百家号和微信公众号上都有自己的自媒体，欢迎关注，搜索“每日编程练习”即可，最近我在刷欧拉项目，有兴趣的同学可以联系我组队交流经验
+
+![我的进度](https://projecteuler.net/profile/xcaptain.png)
 
 ## 更多
 
@@ -13,12 +15,12 @@ menuTitle: 关于我
 - 曾经我是 emacs 的粉丝但是现在我使用 vscode 写代码
 - 我用的 shell 是 fish
 - 使用的编程语言按热爱度排序是:
-  
-    rust > typescript > go > php > javascript > C/C++ > Ocaml
+
+  rust > typescript > go > php > javascript > C/C++ > Ocaml > java
 
 - 使用的编程语言按熟练度排序是:
 
-    php > typescript > go > javascript > rust > C/C++ > Ocaml
+  php > typescript > go > javascript > rust > java > C/C++ > Ocaml
 
 ## 联系我
 
