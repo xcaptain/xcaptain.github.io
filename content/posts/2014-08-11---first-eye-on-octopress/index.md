@@ -1,9 +1,9 @@
 ---
 title: 第一次使用octopress体验
 date: "2014-08-11"
-layout: post
+template: post
 draft: false
-path: "/posts/first-eye-on-octopress/"
+slug: "/posts/first-eye-on-octopress/"
 category: "Blog"
 tags:
   - "Blog"

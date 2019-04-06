@@ -1,9 +1,9 @@
 ---
 title: php使用guzzle发送http请求
 date: "2016-04-28"
-layout: post
+template: post
 draft: false
-path: "/posts/php-guzzle-http-client/"
+slug: "/posts/php-guzzle-http-client/"
 category: "PHP"
 tags:
   - "PHP"

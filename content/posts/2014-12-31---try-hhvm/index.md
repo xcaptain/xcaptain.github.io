@@ -1,9 +1,9 @@
 ---
 title: 尝试hhvm
 date: "2014-12-31"
-layout: post
+template: post
 draft: false
-path: "/posts/try-hhvm/"
+slug: "/posts/try-hhvm/"
 category: "PHP"
 tags:
   - "PHP"

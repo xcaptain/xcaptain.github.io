@@ -1,9 +1,9 @@
 ---
 title: 通过vagrant安装coreos
 date: "2014-12-26"
-layout: post
+template: post
 draft: false
-path: "/posts/install-coreos-with-vagrant/"
+slug: "/posts/install-coreos-with-vagrant/"
 category: "Virtualization"
 tags:
   - "Virtualization"

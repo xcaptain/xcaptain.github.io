@@ -1,9 +1,9 @@
 ---
 title: python2编码问题
 date: "2015-01-13"
-layout: post
+template: post
 draft: false
-path: "/posts/python-encoding/"
+slug: "/posts/python-encoding/"
 category: "Python"
 tags:
   - "Python"

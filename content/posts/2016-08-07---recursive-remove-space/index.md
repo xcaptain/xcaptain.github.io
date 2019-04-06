@@ -1,9 +1,9 @@
 ---
 title: 递归地删除数组里所有多余的空格
 date: "2016-08-07"
-layout: post
+template: post
 draft: false
-path: "/posts/recursive-remove-space/"
+slug: "/posts/recursive-remove-space/"
 category: "PHP"
 tags:
   - "PHP"

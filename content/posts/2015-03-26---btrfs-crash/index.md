@@ -1,9 +1,9 @@
 ---
 title: btrfs损坏之后的一系列麻烦
 date: "2015-03-26"
-layout: post
+template: post
 draft: false
-path: "/posts/btrfs-crash/"
+slug: "/posts/btrfs-crash/"
 category: "Linux"
 tags:
   - "Linux"

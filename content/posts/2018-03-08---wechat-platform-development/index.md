@@ -1,9 +1,9 @@
 ---
 title: 微信平台开发流程总结
 date: "2018-03-08"
-layout: post
+template: post
 draft: false
-path: "/posts/wechat-platform-development/"
+slug: "/posts/wechat-platform-development/"
 category: "Web"
 tags:
   - "Web"

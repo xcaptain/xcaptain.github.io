@@ -1,9 +1,9 @@
 ---
 title: 使用尺取法计算数组中最短连续子数组之和大于某个指定的数
 date: "2017-11-24 01:16:00"
-layout: post
+template: post
 draft: false
-path: "/posts/shortest-seq-sum-greater-than-target/"
+slug: "/posts/shortest-seq-sum-greater-than-target/"
 category: "Algorithms"
 tags:
   - "Algorithms"

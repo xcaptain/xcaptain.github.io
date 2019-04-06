@@ -1,9 +1,9 @@
 ---
 title: 学习haskell（一）
 date: "2014-10-25"
-layout: post
+template: post
 draft: false
-path: "/posts/learn-haskell-1/"
+slug: "/posts/learn-haskell-1/"
 category: "Haskell"
 tags:
   - "Haskell"

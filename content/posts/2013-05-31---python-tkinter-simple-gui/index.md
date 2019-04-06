@@ -1,9 +1,9 @@
 ---
 title: CSDN老博文迁移-用python做一个简易的图形界面
 date: "2013-05-31"
-layout: post
+template: post
 draft: false
-path: "/posts/python-tkinter-simple-gui/"
+slug: "/posts/python-tkinter-simple-gui/"
 category: "Programming"
 tags:
   - "Programming"

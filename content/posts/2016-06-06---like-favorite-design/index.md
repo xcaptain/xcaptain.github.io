@@ -1,9 +1,9 @@
 ---
 title: 点赞收藏存储设计
 date: "2016-06-06"
-layout: post
+template: post
 draft: false
-path: "/posts/like-and-favorite-design/"
+slug: "/posts/like-and-favorite-design/"
 category: "Laravel"
 tags:
   - "Laravel"

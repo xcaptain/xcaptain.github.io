@@ -1,9 +1,9 @@
 ---
 title: 新入手xps13 9360的体验
 date: "2016-11-19"
-layout: post
+template: post
 draft: false
-path: "/posts/xps13-9360-first-eye/"
+slug: "/posts/xps13-9360-first-eye/"
 category: "Linux"
 tags:
   - "Linux"

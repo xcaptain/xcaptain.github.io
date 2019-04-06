@@ -1,9 +1,9 @@
 ---
 title: 学习git
 date: "2015-06-01"
-layout: post
+template: post
 draft: false
-path: "/posts/learn-git/"
+slug: "/posts/learn-git/"
 category: "Git"
 tags:
   - "Git"

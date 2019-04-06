@@ -1,9 +1,9 @@
 ---
 title: 自定义键盘布局
 date: "2014-08-25"
-layout: post
+template: post
 draft: false
-path: "/posts/customize-keyboard-layout/"
+slug: "/posts/customize-keyboard-layout/"
 category: "Linux"
 tags:
   - "Linux"

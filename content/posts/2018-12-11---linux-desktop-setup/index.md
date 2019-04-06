@@ -1,6 +1,6 @@
 ---
 title: linux桌面设置
-path: "/posts/linux-desktop-setup/"
+slug: "/posts/linux-desktop-setup/"
 category: "Linux"
 tags:
   - "Linux"

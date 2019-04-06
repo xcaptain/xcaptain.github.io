@@ -1,7 +1,7 @@
 ---
 title: 使用go编写web后端
 draft: false
-path: "/posts/go-web-programming/"
+slug: "/posts/go-web-programming/"
 category: "Go"
 tags:
   - "Go"

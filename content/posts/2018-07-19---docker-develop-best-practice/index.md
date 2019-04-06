@@ -1,9 +1,9 @@
 ---
 title: docker开发最佳实践
 date: "2018-07-19"
-layout: post
+template: post
 draft: false
-path: "/posts/docker-dev-best-practice/"
+slug: "/posts/docker-dev-best-practice/"
 cover: docker-with-kafka-streams.png
 category: "Docker"
 tags:

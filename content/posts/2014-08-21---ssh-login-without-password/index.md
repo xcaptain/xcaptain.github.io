@@ -1,9 +1,9 @@
 ---
 title: 不用密码ssh登陆服务器
 date: "2014-08-21"
-layout: post
+template: post
 draft: false
-path: "/posts/ssh-login-without-password/"
+slug: "/posts/ssh-login-without-password/"
 category: "Linux"
 tags:
   - "Linux"

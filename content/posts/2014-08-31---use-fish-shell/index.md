@@ -1,9 +1,9 @@
 ---
 title: 使用fish
 date: "2014-08-31"
-layout: post
+template: post
 draft: false
-path: "/posts/use-fish/"
+slug: "/posts/use-fish/"
 category: "Linux"
 tags:
   - "Linux"

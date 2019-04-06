@@ -1,9 +1,9 @@
 ---
 title: php猴子补丁
 date: "2016-09-30"
-layout: post
+template: post
 draft: false
-path: "/posts/php-monkey-patch/"
+slug: "/posts/php-monkey-patch/"
 category: "PHP"
 tags:
   - "PHP"

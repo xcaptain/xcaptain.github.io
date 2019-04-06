@@ -1,9 +1,9 @@
 ---
 title: 使用headless chrome进行网页爬取
 date: "2017-08-28 01:00:00"
-layout: post
+template: post
 draft: false
-path: "/posts/headless-chrome-for-web-scraping/"
+slug: "/posts/headless-chrome-for-web-scraping/"
 category: "Python"
 tags:
   - "Programming"

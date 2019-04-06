@@ -1,9 +1,9 @@
 ---
 title: 使用org-mode
 date: "2015-03-15"
-layout: post
+template: post
 draft: false
-path: "/posts/use-orgmode/"
+slug: "/posts/use-orgmode/"
 category: "Emacs"
 tags:
   - "Emacs"

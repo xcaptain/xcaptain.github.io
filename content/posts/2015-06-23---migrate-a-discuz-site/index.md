@@ -1,9 +1,9 @@
 ---
 title: 迁移一个discuz站点
 date: "2015-06-23"
-layout: post
+template: post
 draft: false
-path: "/posts/migrate-a-discuz-site/"
+slug: "/posts/migrate-a-discuz-site/"
 category: "PHP"
 tags:
   - "PHP"

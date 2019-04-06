@@ -1,9 +1,9 @@
 ---
 title: laravel密码生成与校验机制
 date: "2016-07-08"
-layout: post
+template: post
 draft: false
-path: "/posts/laravel-password-and-key/"
+slug: "/posts/laravel-password-and-key/"
 category: "Laravel"
 tags:
   - "Laravel"

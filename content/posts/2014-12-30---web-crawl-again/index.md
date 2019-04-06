@@ -1,9 +1,9 @@
 ---
 title: 采集一个论坛的帖子来进行数据分析
 date: "2014-12-30"
-layout: post
+template: post
 draft: false
-path: "/posts/web-crawl-again/"
+slug: "/posts/web-crawl-again/"
 category: "Python"
 tags:
   - "Python"

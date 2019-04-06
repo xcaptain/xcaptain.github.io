@@ -1,9 +1,9 @@
 ---
 title: 创建自己的composer组建
 date: "2015-12-15"
-layout: post
+template: post
 draft: false
-path: "/posts/create-composer-package/"
+slug: "/posts/create-composer-package/"
 category: "PHP"
 tags:
   - "PHP"

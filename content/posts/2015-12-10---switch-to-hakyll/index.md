@@ -1,9 +1,9 @@
 ---
 title: 博客从octopress迁移到hakyll
 date: "2015-12-10"
-layout: post
+template: post
 draft: false
-path: "/posts/switch-to-hakyll/"
+slug: "/posts/switch-to-hakyll/"
 category: "Blog"
 tags:
   - "Blog"

@@ -1,7 +1,7 @@
 ---
 title: postgresql运维
 draft: false
-path: "/posts/postgresql-devops/"
+slug: "/posts/postgresql-devops/"
 category: "Web"
 tags:
   - "Web"

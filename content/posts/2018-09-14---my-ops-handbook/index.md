@@ -1,9 +1,9 @@
 ---
 title: 我的服务器运维手册
 date: "2018-09-14"
-layout: post
+template: post
 draft: true
-path: "/posts/my-ops-handbook/"
+slug: "/posts/my-ops-handbook/"
 category: "Web"
 tags:
   - "Web"

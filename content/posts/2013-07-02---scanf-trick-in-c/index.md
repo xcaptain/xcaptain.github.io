@@ -1,9 +1,9 @@
 ---
 title: CSDN老博文迁移-scanf使用的一个小陷阱
 date: "2013-07-02"
-layout: post
+template: post
 draft: false
-path: "/posts/scanf-trick-in-c/"
+slug: "/posts/scanf-trick-in-c/"
 category: "Programming"
 tags:
   - "Programming"

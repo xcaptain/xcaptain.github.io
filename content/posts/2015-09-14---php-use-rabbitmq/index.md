@@ -1,9 +1,9 @@
 ---
 title: php使用rabbitmq队列处理数据推送
 date: "2015-09-14"
-layout: post
+template: post
 draft: false
-path: "/posts/php-use-rabbitmq/"
+slug: "/posts/php-use-rabbitmq/"
 category: "PHP"
 tags:
   - "PHP"

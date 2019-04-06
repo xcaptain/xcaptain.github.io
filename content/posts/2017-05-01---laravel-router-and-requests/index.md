@@ -1,9 +1,9 @@
 ---
 title: laravel路由与请求处理
 date: "2017-05-01"
-layout: post
+template: post
 draft: false
-path: "/posts/laravel-router-and-requests/"
+slug: "/posts/laravel-router-and-requests/"
 category: "Laravel"
 tags:
   - "PHP"

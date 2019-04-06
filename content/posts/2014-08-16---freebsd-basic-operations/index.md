@@ -1,9 +1,9 @@
 ---
 title: freebsd基本操作
 date: "2014-08-16"
-layout: post
+template: post
 draft: false
-path: "/posts/freebsd-basic-operations/"
+slug: "/posts/freebsd-basic-operations/"
 category: "FreeBSD"
 tags:
   - "FreeBSD"

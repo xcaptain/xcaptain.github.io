@@ -1,9 +1,9 @@
 ---
 title: 操作服务器
 date: "2018-08-22"
-layout: post
+template: post
 draft: true
-path: "/posts/a-funny-thing-about-servers/"
+slug: "/posts/a-funny-thing-about-servers/"
 category: "Web"
 tags:
   - "Web"

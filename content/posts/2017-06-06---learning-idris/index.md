@@ -1,9 +1,9 @@
 ---
 title: 学习idris
 date: "2017-06-06"
-layout: post
+template: post
 draft: false
-path: "/posts/learning-idris/"
+slug: "/posts/learning-idris/"
 category: "Idris"
 tags:
   - "Idris"

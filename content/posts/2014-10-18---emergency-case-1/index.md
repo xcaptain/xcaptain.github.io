@@ -1,9 +1,9 @@
 ---
 title: 再来记录一次紧急情况
 date: "2014-10-18"
-layout: post
+template: post
 draft: false
-path: "/posts/emergency-case-1/"
+slug: "/posts/emergency-case-1/"
 category: "Web"
 tags:
   - "Web"

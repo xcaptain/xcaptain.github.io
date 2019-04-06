@@ -1,9 +1,9 @@
 ---
 title: php陷阱与缺陷
 date: "2017-06-30"
-layout: post
+template: post
 draft: false
-path: "/posts/php-pitfalls/"
+slug: "/posts/php-pitfalls/"
 category: "PHP"
 tags:
   - "PHP"

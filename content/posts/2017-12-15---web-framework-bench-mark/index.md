@@ -1,9 +1,9 @@
 ---
 title: web框架性能测试
 date: "2017-12-15"
-layout: post
+template: post
 draft: false
-path: "/posts/web-framework-benchmark-test/"
+slug: "/posts/web-framework-benchmark-test/"
 category: "Web"
 tags:
   - "Web"

@@ -1,9 +1,9 @@
 ---
 title: 我的chromebook
 date: "2016-06-05"
-layout: post
+template: post
 draft: false
-path: "/posts/my-chromebook-review/"
+slug: "/posts/my-chromebook-review/"
 category: "Chromebook"
 tags:
   - "Chromebook"

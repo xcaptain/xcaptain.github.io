@@ -1,9 +1,9 @@
 ---
 title: elasticsearch基础查询功能
 date: "2017-11-11 01:00:00"
-layout: post
+template: post
 draft: false
-path: "/posts/elasticsearch-learning-basics/"
+slug: "/posts/elasticsearch-learning-basics/"
 category: "Elasticsearch"
 tags:
   - "Elasticsearch"

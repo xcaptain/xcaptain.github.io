@@ -1,9 +1,9 @@
 ---
 title: 命令行连接vpn
 date: "2014-09-29"
-layout: post
+template: post
 draft: false
-path: "/posts/connect-to-vpn-through-cmd/"
+slug: "/posts/connect-to-vpn-through-cmd/"
 category: "Linux"
 tags:
   - "Linux"

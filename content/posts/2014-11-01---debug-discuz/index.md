@@ -1,9 +1,9 @@
 ---
 title: 调试discuz
 date: "2014-11-01"
-layout: post
+template: post
 draft: false
-path: "/posts/debug-discuz-site/"
+slug: "/posts/debug-discuz-site/"
 category: "PHP"
 tags:
   - "PHP"

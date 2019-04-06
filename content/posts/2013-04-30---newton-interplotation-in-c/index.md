@@ -1,9 +1,9 @@
 ---
 title: CSDN老博文迁移-牛顿插值法的C语言实现
 date: "2013-04-30"
-layout: post
+template: post
 draft: false
-path: "/posts/newton-interplotation-in-c/"
+slug: "/posts/newton-interplotation-in-c/"
 category: "Programming"
 tags:
   - "Programming"

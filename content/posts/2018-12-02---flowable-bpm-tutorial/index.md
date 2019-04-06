@@ -1,6 +1,9 @@
 ---
 title: flowable工作流引擎使用入门
-path: "/posts/flowable-bpm-tutorial/"
+slug: "/posts/flowable-bpm-tutorial/"
+template: post
+draft: false
+date: "2018-12-02"
 category: "Web"
 tags:
   - "Web"

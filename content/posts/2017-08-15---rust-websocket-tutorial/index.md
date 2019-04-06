@@ -1,9 +1,9 @@
 ---
 title: 使用rust创建websocket服务器
 date: "2017-08-15"
-layout: post
+template: post
 draft: false
-path: "/posts/rust-websocket-server/"
+slug: "/posts/rust-websocket-server/"
 category: "Rust"
 tags:
   - "Rust"

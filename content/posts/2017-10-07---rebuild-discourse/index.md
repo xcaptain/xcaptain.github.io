@@ -1,9 +1,9 @@
 ---
 title: 再次基于discourse搭建论坛
 date: "2017-10-07 01:00:00"
-layout: post
+template: post
 draft: false
-path: "/posts/rebuild-discourse/"
+slug: "/posts/rebuild-discourse/"
 category: "Discourse"
 tags:
   - "Programming"

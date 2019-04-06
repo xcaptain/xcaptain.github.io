@@ -1,9 +1,9 @@
 ---
 title: emacs使用自定义grep-find模板
 date: "2015-03-07"
-layout: post
+template: post
 draft: false
-path: "/posts/emacs-use-grep-find/"
+slug: "/posts/emacs-use-grep-find/"
 category: "Emacs"
 tags:
   - "Emacs"

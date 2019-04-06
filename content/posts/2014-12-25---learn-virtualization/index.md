@@ -1,9 +1,9 @@
 ---
 title: 第一次接触虚拟化
 date: "2014-12-25"
-layout: post
+template: post
 draft: false
-path: "/posts/learn-virtualization/"
+slug: "/posts/learn-virtualization/"
 category: "Virtualization"
 tags:
   - "Virtualization"

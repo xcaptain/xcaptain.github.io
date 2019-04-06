@@ -1,9 +1,9 @@
 ---
 title: php编码规范
 date: "2015-07-14"
-layout: post
+template: post
 draft: false
-path: "/posts/php-coding-style/"
+slug: "/posts/php-coding-style/"
 category: "PHP"
 tags:
   - "PHP"

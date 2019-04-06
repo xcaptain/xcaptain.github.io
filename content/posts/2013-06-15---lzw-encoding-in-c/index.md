@@ -1,9 +1,9 @@
 ---
 title: CSDN老博文迁移-用lzw算法编码一个字符串
 date: "2013-06-15"
-layout: post
+template: post
 draft: false
-path: "/posts/lzw-encoding-in-c/"
+slug: "/posts/lzw-encoding-in-c/"
 category: "Programming"
 tags:
   - "Programming"

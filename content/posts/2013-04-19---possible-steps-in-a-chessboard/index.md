@@ -1,9 +1,9 @@
 ---
 title: CSDN老博文迁移-棋盘中走n步的所有可能走法
 date: "2013-04-19"
-layout: post
+template: post
 draft: false
-path: "/posts/possible-steps-in-a-chessboard/"
+slug: "/posts/possible-steps-in-a-chessboard/"
 category: "Programming"
 tags:
   - "Programming"

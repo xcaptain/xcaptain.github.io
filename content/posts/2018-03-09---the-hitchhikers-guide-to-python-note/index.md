@@ -1,9 +1,9 @@
 ---
 title: The hitchhiker's guide to python 读书笔记
 date: "2018-03-09"
-layout: post
+template: post
 draft: false
-path: "/posts/the-hitchhikers-guide-to-python-note/"
+slug: "/posts/the-hitchhikers-guide-to-python-note/"
 category: "Python"
 tags:
   - "Python"

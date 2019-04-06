@@ -1,9 +1,9 @@
 ---
 title: php多进程处理大任务
 date: "2016-09-09"
-layout: post
+template: post
 draft: false
-path: "/posts/php-multi-process-task/"
+slug: "/posts/php-multi-process-task/"
 category: "PHP"
 tags:
   - "PHP"

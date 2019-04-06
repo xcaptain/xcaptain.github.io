@@ -1,6 +1,6 @@
 ---
 title: 使用azure devops
-path: "/posts/azure-devops-tutorial/"
+slug: "/posts/azure-devops-tutorial/"
 category: "Web"
 tags:
   - "Web"

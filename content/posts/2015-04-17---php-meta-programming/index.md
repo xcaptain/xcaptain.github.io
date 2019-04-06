@@ -1,9 +1,9 @@
 ---
 title: 一个简单的元编程例子
 date: "2015-04-17"
-layout: post
+template: post
 draft: false
-path: "/posts/php-meta-programming/"
+slug: "/posts/php-meta-programming/"
 category: "PHP"
 tags:
   - "PHP"
