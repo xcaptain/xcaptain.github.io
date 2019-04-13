@@ -62,7 +62,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/static/media`,
+        path: `${__dirname}/content/posts/media`,
         name: 'media'
       }
     },
