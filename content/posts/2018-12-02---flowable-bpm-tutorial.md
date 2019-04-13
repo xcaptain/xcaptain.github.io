@@ -56,17 +56,17 @@ docker run -p 8080:8080 flowable/all-in-one
 
 以管理员身份访问IDM创建用户，或者是添加组，把用户分配到组，默认账号是admin密码是test
 
-![用户管理平台](./flowable-idm-1.png)
+![用户管理平台](../../static/media/flowable-idm-1.png)
 
 ### 创建流程模型
 
 创建好用户分配好角色与权限后再创建流程模型，flowable支持bpmn2.0标准来建模业务流程
 
-![模型构建器](./flowable-modeler-1.png)
+![模型构建器](../../static/media/flowable-modeler-1.png)
 
 建模的时候会要关联表单，通过这种图形化的操作，设计各个环节的表单很方便
 
-![表单设计界面](./flowable-modeler-2.png)
+![表单设计界面](../../static/media/flowable-modeler-2.png)
 
 ### 发起一个流程
 
