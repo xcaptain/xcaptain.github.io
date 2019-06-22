@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-  url: 'https://www.joeyxf.com',
+  url: 'https://joeyxf.com',
   title: 'Joey的博客',
   subtitle: '每天进步一点点',
   copyright: '© All rights reserved.',
-  disqusShortname: '',
+  disqusShortname: 'joeyxf-com',
   postsPerPage: 4,
-  googleAnalyticsId: 'UA-73379983-2',
+  googleAnalyticsId: 'UA-43014027-1',
   menu: [
     {
       label: '文章',

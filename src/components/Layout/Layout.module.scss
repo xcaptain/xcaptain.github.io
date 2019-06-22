@@ -1,6 +1,4 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
 
-.layout {
-    lost-center: $layout-width;
-}
+@import 'katex/dist/katex.min.css';

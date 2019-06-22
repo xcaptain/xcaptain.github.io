@@ -6168,10 +6168,10 @@ gatsby-remark-images@^3.0.10:
     unist-util-select "^1.5.0"
     unist-util-visit-parents "^2.0.1"
 
-gatsby-remark-katex@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.npmjs.org/gatsby-remark-katex/-/gatsby-remark-katex-3.0.4.tgz#e548168c133d7607c22ae75d658f86ad2ba54504"
-  integrity sha512-KblmlquYdo7nY/v6sZrB1kihibS/r59xCPwVrrp5ue99o/hnw5pcgPlhbOAMF1wJ4M6Xhh6FCz+nk1LeKzj/Ng==
+gatsby-remark-katex@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/gatsby-remark-katex/-/gatsby-remark-katex-3.1.0.tgz#b922d368c167e2d121d37920d0bd324b30d79286"
+  integrity sha512-bwfG2VxYHh1Sna15QCHG0Fwx+Y11vlcdoqhyomlYI5GhN4dTHmygnRXXb4/iwFs/0JITIIQaGIgiwONjXBRDIg==
   dependencies:
     "@babel/runtime" "^7.0.0"
     remark-math "^1.0.3"
@@ -6260,10 +6260,10 @@ gatsby-telemetry@^1.0.5:
     stack-utils "1.0.2"
     uuid "3.3.2"
 
-gatsby-transformer-remark@^2.3.8:
-  version "2.3.8"
-  resolved "https://registry.npmjs.org/gatsby-transformer-remark/-/gatsby-transformer-remark-2.3.8.tgz#bf25bceb747f1e1fd2e5809731ff6da0810c1b14"
-  integrity sha512-i0pOcPHbh9cVbkFEu6VMBNIvYErhRLZYApUm+anjSDw0FFj4LN14v/36jpt3+XCZUfJqJCkMP8pth7eS7CEJCg==
+gatsby-transformer-remark@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/gatsby-transformer-remark/-/gatsby-transformer-remark-2.5.0.tgz#ea394d5b158874213f1ea2dc0530377e6138ec1f"
+  integrity sha512-BRIKEc9CJxs021i2CidO6d0ZELAuWmvGeBnSgKdLak4H1cDr6kzqe/iCyfWtEO20fzmWCVS6WCMWRWFo3juf+A==
   dependencies:
     "@babel/runtime" "^7.0.0"
     bluebird "^3.5.0"
@@ -8975,10 +8975,10 @@ jwt-decode@^2.1.0, jwt-decode@^2.2.0:
   resolved "https://registry.npmjs.org/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
   integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
 
-katex@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.npmjs.org/katex/-/katex-0.10.1.tgz#5bb0b72bf19cecfc1fa217a9261760e5d301efff"
-  integrity sha512-iZXZ2L8pEP7HXBLAaeWkdLxnoRQ8Fdks8IuIVt01tYb+D8e0em5JYgfe6J48wXsuEr512IRCN5Kvwb9FjZH6kg==
+katex@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.npmjs.org/katex/-/katex-0.10.2.tgz#39973edbb65eda5b6f9e7f41648781e557dd4932"
+  integrity sha512-cQOmyIRoMloCoSIOZ1+gEwsksdJZ1EW4SWm3QzxSza/QsnZr6D4U1V9S4q+B/OLm2OQ8TCBecQ8MaIfnScI7cw==
   dependencies:
     commander "^2.19.0"
 
