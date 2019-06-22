@@ -51,7 +51,7 @@ LoadError: cannot load such file -- bundler/setup
 在使用python2的时候，要自己手动设置编码，python默认的字符串编码是ascii，这就导致如果在python2程序中出现了中文都会提示一个语法错误，但是如果在python2文件中强制加上一句`# -*- coding: utf-8 -*-` 这样python在执行程序的时候就知道使用utf-8来编码里面的字符串了。也许是我本地locale的设置，在打开python解释器的时候总是会自动帮我使用utf-8编码。
 首先说说ascii编码，ascii只能编码代码点从0到127的字符，也就是英文字符，如果遇到代码点很高的字符，比如说中文，就没法争取的编码了，就会报错。下面来举几个例子：
 
-```python2
+```python
 s1 = '你好，world' #这里如果指定了文件的编码为utf-8，会自动把这个字符串编码成utf-8
 s1 => '\xe4\xbd\xa0\xe5\xa5\xbd\xef\xbc\x8cworld'
 s2 = u'你好，world' #这里前面加了一个u来表明这个字符串是一个unicode字符串

@@ -91,13 +91,15 @@ function cut_str($str, $start, $length)
 简单说就是idris实现了一个很强大的类型系统，在编译时能能检测出大部分程序潜在的问题，真正做到once it compiles, it runs.
 
 用idris重写一下上面那个cut_str方法
+
 ```idris
 cut_str : (index : Nat) -> (len : Nat) -> (subject : String) -> String
 cut_str = substr
 ```
 
 这时候谁要是写 cut_str 0 2 ["hello"] 这样的代码，编译器直接会报错，没机会走到runtime
-```plain
+
+```text
 When checking argument subject to function Main.cut_str:
         Can't disambiguate since no name has a suitable type:
                 Prelude.List.::, Prelude.Stream.::
@@ -106,6 +108,7 @@ When checking argument subject to function Main.cut_str:
 这种形式的代码我非常喜欢，方法的参数定义得很明确，功能定义也很明确，如果谁乱调用，那么就将自食其果。
 
 之前关注过的强类型的语言还有:
+
 1. [typescrit](https://www.learning-idrisw.typescriptlang.org/)
 
 学习idris这门语言的特性，了解依赖类型，强类型语言的有点

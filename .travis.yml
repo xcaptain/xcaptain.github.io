@@ -6,10 +6,6 @@ install:
   - npm i -g gatsby
 script:
   - yarn install
-  - yarn lint
-  - yarn test:coverage --runInBand --no-cache
-  - yarn test --runInBand --no-cache
-  - codecov
 deploy:
   provider: pages
   skip-cleanup: true

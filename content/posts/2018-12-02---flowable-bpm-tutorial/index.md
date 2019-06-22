@@ -41,7 +41,7 @@ bpm和workflow engine有相似之处，但是bpm偏向于处理大规模业务�
 
 ### 使用docker安装
 
-```sh
+```shell
 docker run -p 8080:8080 flowable/all-in-one
 ```
 

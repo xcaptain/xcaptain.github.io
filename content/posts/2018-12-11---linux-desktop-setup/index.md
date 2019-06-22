@@ -24,7 +24,7 @@ tags:
 
 安装完系统之后，首先需要配置的是 fish，之前也用过 zsh，但是觉得不如 fish 好用，配置也简单，一键安装就行
 
-```sh
+```shell
 sudo pacman -S fish
 
 chsh -s /usr/bin/fish
@@ -34,7 +34,7 @@ chsh -s /usr/bin/fish
 
 最早用的是默认的 gnome terminal，后来用了 urxvt/xterm，现在在用 alacritty，一个用 rust 写的终端软件，基本不需要配置，开箱即用
 
-```sh
+```shell
 sudo pacman -S alacritty
 ```
 
@@ -42,7 +42,7 @@ sudo pacman -S alacritty
 
 最早的时候没概念只知道使用`Ctrl+Alt+T`让终端生成新的标签，后来使用了 tmux，发现功能非常强大，很提高效率
 
-```sh
+```shell
 sudo pacman -S tmux
 ```
 
@@ -56,7 +56,7 @@ sudo pacman -S tmux
 
 最早是 vim 党，后来用 emacs，现在用 code，因为 code 也是开箱即用，不需要额外配置，方便的很
 
-```sh
+```shell
 aurman -S visual-studio-code-bin
 ```
 
