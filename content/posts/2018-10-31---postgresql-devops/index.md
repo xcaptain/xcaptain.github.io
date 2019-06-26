@@ -113,7 +113,7 @@ select comment_id, count(comment_id) filter (where dir=1) as up_votes, count(com
 
 在这里要注意postgresql支持本地linux内核授权和自己数据库内授权，按照`/etc/postgresql/10/main/pg_hba.conf` 中的配置
 
-```plain
+```text
 # Database administrative login by Unix domain socket
 local   all             postgres                                peer
 

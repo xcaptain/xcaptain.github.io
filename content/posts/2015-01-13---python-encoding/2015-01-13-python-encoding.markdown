@@ -68,9 +68,11 @@ u2 => '\xe4\xbd\xa0\xe5\xa5\xbd\xef\xbc\x8cworld'
 写到这里突然发现昨晚的问题实在不算问题，看来之前是没有静下心来研究，写博客还是有好处的。
 
 接下来再看看python3,python3的默认编码是unicode，而实际存在内存中的就是字节码，bytecode。也就是说一个字符串只有2种状态，unicode和byte，这样就节省很多事情了，没有各种编码解码的麻烦。
-```python3
+
+```python
 s = '你好，world' #这是一个str类型的字符串
 b1 = s.encode('utf-8') #这是把s编码为utf-8后的字节码
 b2 = s.encode('gbk') #把s编码为gbk后的字节码
 ```
+
 相对于2来说，3最大的进步就是不需要手动encode，decode，对于处理未知编码的文件最方便了。

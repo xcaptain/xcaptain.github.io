@@ -12,8 +12,6 @@ tags:
 description: "最近需要使用到confluent的kafka streams，由于他们是使用docker提供服务的，所以重新规划了一下本地的docker环境，和上游保持一致，避免环境不一致导致太大的差异"
 ---
 
-# docker开发最佳实践
-
 docker 的使用方式有很多，很多发行版都带了 docker 软件包，比如说在 archlinux 上就可以执行
 
 ```bash

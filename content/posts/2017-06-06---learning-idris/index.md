@@ -40,8 +40,10 @@ function cut_str($str, $start, $length)
     return substr($str, $start, $length);
 }
 ```
+
 你还特意给这个简单得不能再简单的方法添加了注释文档，但是有一天你在查看程序的日志时发现以下内容:
-```plain
+
+```text
 PHP warning:  substr() expects parameter 1 to be string, array given on line 1
 PHP error:  Undefined variable: a on line 1
 ```
