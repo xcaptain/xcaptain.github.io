@@ -29,7 +29,7 @@ description: "说discourse是未来十年互联网论坛发展的趋势，那就
 
 对照着教程在自己的笔记本上一步一步的做，先`vagrant init hashicorp/precise32`，这回在当前的目录下创建一个叫作`Vagrantfile`的文件，这里面包含了一大堆虚拟机的配置信息。然后`vagrant up`就会启动虚拟机，这时候`ps aux | grep -i virtualbox`就会发现virtualbox已经自动在运行了，在家目录的`VirtualBox\ VMs/`目录下也会创建对应虚拟机的目录，但是没有启动那个讨厌的图形界面这很不错。因为vagrant主要是用来配置服务器的，所以不需要图形界面，等系统下载安装好了之后就可以执行`vagrant up`来启动虚拟机了，这个操作会检测是否有`Vagrantfile`里面写的系统，如果没有就会自动从网上下载。系统下完之后`vagrant ssh`可以远程连接上虚拟机，发现虚拟机上面有一个网卡ip是`10.0.2.15`，好奇怪的东西，联网方式是NAT还是bridge呢？有一个自动安装系统的脚本，叫作`postinstall.sh`，以root身份执行它会自动安装系统，等最后跑完的时候吓我一大跳
 
-```
+```shell
 ++ rm -f '/home/vagrant/*.iso' /home/vagrant/postinstall.sh
 ++ dd if=/dev/zero of=/EMPTY bs=1M
 dd: writing `/EMPTY': No space left on device
