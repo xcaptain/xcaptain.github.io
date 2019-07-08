@@ -49,13 +49,13 @@
 <url> <loc>https://joeyxf.com/posts/wechat-platform-development/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/the-hitchhikers-guide-to-python-note/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/docker-dev-best-practice/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/php-monkey-patch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/learning-idris/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/flowable-bpm-tutorial/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/blog-updates</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/how-to-use-superset</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/setup-nginx-tcp-ssl-proxy</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/learning-idris/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/php-monkey-patch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/algorithms</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/chrome</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
