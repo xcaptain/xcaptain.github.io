@@ -1,4 +1,210 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Joey的博客]]></title><description><![CDATA[每天进步一点点]]></description><link>https://joeyxf.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 08 Jul 2019 03:52:17 GMT</lastBuildDate><item><title><![CDATA[配置nginx tcp ssl负载均衡]]></title><description><![CDATA[配置nginx tcp ssl负载均衡]]></description><link>https://joeyxf.com/posts/setup-nginx-tcp-ssl-proxy</link><guid isPermaLink="false">https://joeyxf.com/posts/setup-nginx-tcp-ssl-proxy</guid><pubDate>Tue, 02 Jul 2019 00:02:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;生成自签发证书&quot;&gt;&lt;a href=&quot;#%E7%94%9F%E6%88%90%E8%87%AA%E7%AD%BE%E5%8F%91%E8%AF%81%E4%B9%A6&quot; aria-label=&quot;生成自签发证书 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;生成自签发证书&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Joey的博客]]></title><description><![CDATA[每天进步一点点]]></description><link>https://joeyxf.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 24 Jul 2019 04:12:01 GMT</lastBuildDate><item><title><![CDATA[使用vscode来进行开发与调试]]></title><description><![CDATA[vscode是一个很流行的代码编辑器，轻量但是插件丰富，稍加扩展就能成为一款强大的IDE，对编码效率有很大的提升]]></description><link>https://joeyxf.com/posts/vscode-debug-tutorial</link><guid isPermaLink="false">https://joeyxf.com/posts/vscode-debug-tutorial</guid><pubDate>Tue, 23 Jul 2019 20:56:00 GMT</pubDate><content:encoded>&lt;p&gt;本文主要将介绍如何用vscode进行各种语言的项目进行调试，在没有好的工具链的远古时代，人们一般是用gdb,pdb来调试C/C++,python代码，后来有了IDE，可以在IDE里面进行调试，但是一般来说IDE和编程语言绑定太严重了，没法做到随意切换，后来有了vscode，微软牵头搞了LSP，CDP，使得在不同平台下编辑调试体验都很一致了&lt;/p&gt;
+&lt;p&gt;大体上来说调试程序的过程包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;生成带调试信息的二进制文件&lt;/li&gt;
+&lt;li&gt;把这个二进制文件加载到调试器中运行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不管是过去的gdb命令行模式调，还是现在的vscode图形界面调，这2个基本原则都没变。接下来将举例说明如何用vscode配合语言扩展调试不同语言的项目&lt;/p&gt;
+&lt;h2 id=&quot;python&quot;&gt;&lt;a href=&quot;#python&quot; aria-label=&quot;python permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;python&lt;/h2&gt;
+&lt;p&gt;Python是被vscode官方支持的语言，进入扩展市场搜索python，然后安装排名最靠前的微软官方的那个扩展就行了&lt;/p&gt;
+&lt;h3 id=&quot;调试一个简单的flask-app&quot;&gt;&lt;a href=&quot;#%E8%B0%83%E8%AF%95%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84flask-app&quot; aria-label=&quot;调试一个简单的flask app permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;调试一个简单的flask app&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; flask_demo
+&lt;span class=&quot;token function&quot;&gt;cd&lt;/span&gt; flask_demo
+python3 -m venv venv
+&lt;span class=&quot;token keyword&quot;&gt;.&lt;/span&gt; venv/bin/activate.fish &lt;span class=&quot;token comment&quot;&gt;# 可能是bash文件是视当前shell环境的定&lt;/span&gt;
+pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; Flask&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;创建一个简单的&lt;code class=&quot;language-text&quot;&gt;app.py&lt;/code&gt;文件，包含的内容如下：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; flask &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Flask
+app &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Flask&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__name__&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+@app&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;route&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;hello_world&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Hello World!&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; __name__ &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;__main__&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    app&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;run&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;用vscode打开这个项目，按下&lt;code class=&quot;language-text&quot;&gt;F5&lt;/code&gt;开始调试，遇到的界面如下：&lt;/p&gt;
+&lt;p&gt;&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e7a04b8316e9bd90e1f20c361c9147c2/ff12a/python-flask-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 37.50819672131147%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAIAAAB2/0i6AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2UlEQVQY052PW27DIBBFWUjB5TEQB2IwhEdxYllV97+mTqykavuTqkdXCI10uANZll5rLaWWeiPnnFLw/pRLa/1SW++X63Xd8GxvC07OpaYUU5ydc2R732JM84yJePEhGqMN6KmtfvmwebVlg9hFaMI3EfpgHKUvjDFKKcmtOHey9h53dIoL0BBxgXieQpzCDGaUYJQ+KD1yIdFjO0QqacxBa3MPaMG5EGq0VgNIIdjwEzawB0RKBVj0iFLAd6RSr8MTCJZg4Tcfbq/vX2LP+N38Jf8FlOHf8ieufEeLtNQzCwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;&lt;/span&gt;
+    &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;flask app&quot;
+        title=&quot;&quot;
+        src=&quot;/static/e7a04b8316e9bd90e1f20c361c9147c2/f570d/python-flask-1.png&quot;
+        srcset=&quot;/static/e7a04b8316e9bd90e1f20c361c9147c2/0783d/python-flask-1.png 240w,
+/static/e7a04b8316e9bd90e1f20c361c9147c2/782f4/python-flask-1.png 480w,
+/static/e7a04b8316e9bd90e1f20c361c9147c2/f570d/python-flask-1.png 960w,
+/static/e7a04b8316e9bd90e1f20c361c9147c2/8d0ff/python-flask-1.png 1440w,
+/static/e7a04b8316e9bd90e1f20c361c9147c2/ff12a/python-flask-1.png 1525w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+  &lt;/span&gt;
+  &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;选择flask，vscode会自动生成调试配置文件，具体见&lt;code class=&quot;language-text&quot;&gt;.vscode/launch.json&lt;/code&gt;，默认生成的flask 调试配置文件如下：&lt;/p&gt;
+&lt;p&gt;&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/b6ad96fbf76c0469d3f7ef08216b8070/dc619/python-flask-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 72.3360655737705%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABFElEQVQoz42R/W7DIAzE8yAFjDHYQJp+bZP2z97/sXYla6tuk5rTCVlRfvhspsvb6Xg87mddltqaSkoiWXDAKP46P+qJiFTxKaUSYwosMQqlwizk/tXO+ZuuMAWKifrF9h+1vxkKnUUMfBx3Rc7Do0CPJziEkFKa565WzDQyu+CIAzHFYRq+1w8Y5MrjFDWMVDEOM4IH7x0yPts9UvspDl1L52rvtfVm2lvFhf6VJmb+gb23/cHmBQvH+hAGfgHfO4fx63x+P3x+IcK56WLKkdxGWHIRq2KNc44v+/6KnXLppkicNgx8hfFI4NfOWJKKnHpdrGyCQd6eKkhRziVE2Tm3Fc6YEJshWvtv1wRgxYY2jXrXN8GDa8RKwfiUAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;&lt;/span&gt;
+    &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;flask vscode launch file&quot;
+        title=&quot;&quot;
+        src=&quot;/static/b6ad96fbf76c0469d3f7ef08216b8070/f570d/python-flask-2.png&quot;
+        srcset=&quot;/static/b6ad96fbf76c0469d3f7ef08216b8070/0783d/python-flask-2.png 240w,
+/static/b6ad96fbf76c0469d3f7ef08216b8070/782f4/python-flask-2.png 480w,
+/static/b6ad96fbf76c0469d3f7ef08216b8070/f570d/python-flask-2.png 960w,
+/static/b6ad96fbf76c0469d3f7ef08216b8070/dc619/python-flask-2.png 976w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+  &lt;/span&gt;
+  &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这样就以调试模式把代码跑起来了，相当于这个flask app是在调试器内运行，所以可以监控当前变量，单步执行等&lt;/p&gt;
+&lt;h2 id=&quot;调试rust代码&quot;&gt;&lt;a href=&quot;#%E8%B0%83%E8%AF%95rust%E4%BB%A3%E7%A0%81&quot; aria-label=&quot;调试rust代码 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;调试rust代码&lt;/h2&gt;
+&lt;p&gt;rust语言没有被vscode官在支持，但是社区做了很多工作，基本算是可用。首先建议安装&lt;a href=&quot;https://github.com/rust-analyzer/rust-analyzer&quot;&gt;rust-analyzer&lt;/a&gt;，这是rust的lsp，用来进行代码跳转补齐。其次安装&lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb&quot;&gt;lldb&lt;/a&gt;，用于把rust二进制文件放调试器运行&lt;/p&gt;
+&lt;h3 id=&quot;调试一个简单的rust项目&quot;&gt;&lt;a href=&quot;#%E8%B0%83%E8%AF%95%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84rust%E9%A1%B9%E7%9B%AE&quot; aria-label=&quot;调试一个简单的rust项目 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;调试一个简单的rust项目&lt;/h3&gt;
+&lt;p&gt;测试项目见：&lt;a href=&quot;https://github.com/xcaptain/rust-algorithms&quot;&gt;https://github.com/xcaptain/rust-algorithms&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;调试效果图如下：&lt;/p&gt;
+&lt;p&gt;&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f8ecfcaf26067983669a4c096f1150a4/7e1bc/rust-vscode-debug-1.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 53.16011235955056%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAMCBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAeVmkgD/xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAEFAl//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAY/Al//xAAaEAABBQEAAAAAAAAAAAAAAAAAEBEhQXGR/9oACAEBAAE/IZH06Uv/2gAMAwEAAgADAAAAEHMP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAAICAwAAAAAAAAAAAAAAAQAREEEhMWH/2gAIAQEAAT8QTrTEUDyl+wBGtY//2Q==&apos;); background-size: cover; display: block;&quot;
+    &gt;&lt;/span&gt;
+    &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;rust-vscode-debug-demo&quot;
+        title=&quot;&quot;
+        src=&quot;/static/f8ecfcaf26067983669a4c096f1150a4/b3ee8/rust-vscode-debug-1.jpg&quot;
+        srcset=&quot;/static/f8ecfcaf26067983669a4c096f1150a4/3bc27/rust-vscode-debug-1.jpg 240w,
+/static/f8ecfcaf26067983669a4c096f1150a4/98431/rust-vscode-debug-1.jpg 480w,
+/static/f8ecfcaf26067983669a4c096f1150a4/b3ee8/rust-vscode-debug-1.jpg 960w,
+/static/f8ecfcaf26067983669a4c096f1150a4/7e1bc/rust-vscode-debug-1.jpg 1424w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+  &lt;/span&gt;
+  &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;很显然，调试器上部可以看到当前变量的值，下部可以看调的堆栈&lt;/p&gt;
+&lt;h2 id=&quot;调试java代码&quot;&gt;&lt;a href=&quot;#%E8%B0%83%E8%AF%95java%E4%BB%A3%E7%A0%81&quot; aria-label=&quot;调试java代码 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;调试java代码&lt;/h2&gt;
+&lt;p&gt;安装vscode的java扩展之后，套路是一样的，上一张调试spring boot项目的图&lt;/p&gt;
+&lt;p&gt;&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/6f256cc67c0d27ae296a4146e93c8225/92e4f/java-vscode-debug-1.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 53.23590814196242%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHlTeQxB//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEAAQUCX//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABoQAAICAwAAAAAAAAAAAAAAAAABEWEQMVH/2gAIAQEAAT8hc2N2S+j3n//aAAwDAQACAAMAAAAQc8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAdEAACAAcBAAAAAAAAAAAAAAAAARARITFRcZGx/9oACAEBAAE/EKkwx29mBujNaR//2Q==&apos;); background-size: cover; display: block;&quot;
+    &gt;&lt;/span&gt;
+    &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;vscode-springboot-debug-demo&quot;
+        title=&quot;&quot;
+        src=&quot;/static/6f256cc67c0d27ae296a4146e93c8225/b3ee8/java-vscode-debug-1.jpg&quot;
+        srcset=&quot;/static/6f256cc67c0d27ae296a4146e93c8225/3bc27/java-vscode-debug-1.jpg 240w,
+/static/6f256cc67c0d27ae296a4146e93c8225/98431/java-vscode-debug-1.jpg 480w,
+/static/6f256cc67c0d27ae296a4146e93c8225/b3ee8/java-vscode-debug-1.jpg 960w,
+/static/6f256cc67c0d27ae296a4146e93c8225/b97fe/java-vscode-debug-1.jpg 1440w,
+/static/6f256cc67c0d27ae296a4146e93c8225/92e4f/java-vscode-debug-1.jpg 1916w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+  &lt;/span&gt;
+  &lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;调试go代码&quot;&gt;&lt;a href=&quot;#%E8%B0%83%E8%AF%95go%E4%BB%A3%E7%A0%81&quot; aria-label=&quot;调试go代码 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;调试go代码&lt;/h2&gt;
+&lt;p&gt;这回不用框架，手写一个简单的例子演示如何调试&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;go&quot;&gt;&lt;pre class=&quot;language-go&quot;&gt;&lt;code class=&quot;language-go&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt; main
+
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	a &lt;span class=&quot;token operator&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+	fmt&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;a=&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; b
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这段是一个非常简单的go代码，用vscode打开这个项目，然后按下&lt;code class=&quot;language-text&quot;&gt;F5&lt;/code&gt;，编辑器会自动检测到项目类型而生成一个&lt;code class=&quot;language-text&quot;&gt;.vscode/launch.json&lt;/code&gt;的文件，有了这个文件编辑器就知道该怎么调试整个项目了&lt;/p&gt;
+&lt;p&gt;效果图如下：&lt;/p&gt;
+&lt;p&gt;&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f448884ed3604a46804af8c2567cc357/2d15a/go-vscode-debug-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 23.674242424242422%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAIAAADKYVtkAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAiElEQVQY033LYQ6DIAwFYA6ihZbCnHZDcATd/Q8mZGZZTObL96NN+1Qpa855bdnqXEpZljSn+AwytcivOaaYUpzDZ1Xj9PDe31qGyjlHlv0ohAb6c0BDA8dFEXEtO3ewxFobQlu/ug6uKWv526w88+DwlYf3dg/BiIBI/8+5zOwQDREQ6QoRLuyS7yu7Yy4xCwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;&lt;/span&gt;
+    &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;go-vscode-debug&quot;
+        title=&quot;&quot;
+        src=&quot;/static/f448884ed3604a46804af8c2567cc357/f570d/go-vscode-debug-1.png&quot;
+        srcset=&quot;/static/f448884ed3604a46804af8c2567cc357/0783d/go-vscode-debug-1.png 240w,
+/static/f448884ed3604a46804af8c2567cc357/782f4/go-vscode-debug-1.png 480w,
+/static/f448884ed3604a46804af8c2567cc357/f570d/go-vscode-debug-1.png 960w,
+/static/f448884ed3604a46804af8c2567cc357/8d0ff/go-vscode-debug-1.png 1440w,
+/static/f448884ed3604a46804af8c2567cc357/2d15a/go-vscode-debug-1.png 1584w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+  &lt;/span&gt;
+  &lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;高级用法&quot;&gt;&lt;a href=&quot;#%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95&quot; aria-label=&quot;高级用法 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;高级用法&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;如何调试mono repo(包含多个入口程序的项目)&lt;/li&gt;
+&lt;li&gt;如何调试运行中的程序&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[配置nginx tcp ssl负载均衡]]></title><description><![CDATA[配置nginx tcp ssl负载均衡]]></description><link>https://joeyxf.com/posts/setup-nginx-tcp-ssl-proxy</link><guid isPermaLink="false">https://joeyxf.com/posts/setup-nginx-tcp-ssl-proxy</guid><pubDate>Tue, 02 Jul 2019 00:02:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;生成自签发证书&quot;&gt;&lt;a href=&quot;#%E7%94%9F%E6%88%90%E8%87%AA%E7%AD%BE%E5%8F%91%E8%AF%81%E4%B9%A6&quot; aria-label=&quot;生成自签发证书 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;生成自签发证书&lt;/h2&gt;
 &lt;p&gt;要做ssl代理必须要有证书，很多人会从第三方认证机构购买，有些人会直接使用lets encrypt的免费证书，但因为我们只是服务端通信用，所以不必要使用权威认证机构签发的证书，自己签发一个就行，参考了下面这篇文章生成自签发证书&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zonena.me/2016/02/creating-ssl-certificates-in-3-easy-steps/&quot;&gt;https://zonena.me/2016/02/creating-ssl-certificates-in-3-easy-steps/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;生成使用ed25519加密算法的证书，第一行生成密钥，第二行生成证书&lt;/p&gt;
@@ -219,7 +425,85 @@ docker &lt;span class=&quot;token function&quot;&gt;cp&lt;/span&gt; 5ede569d1a0a
 &lt;h2 id=&quot;seo优化&quot;&gt;&lt;a href=&quot;#seo%E4%BC%98%E5%8C%96&quot; aria-label=&quot;seo优化 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;SEO优化&lt;/h2&gt;
 &lt;p&gt;目前网站谷歌统计(google analysis)，谷歌搜索控制台(google search console)，在谷歌搜索控制台后台提交了sitemap和rss，页面上暂时没加太多seo优化代码，没有robot协议文件&lt;/p&gt;
 &lt;h2 id=&quot;注意&quot;&gt;&lt;a href=&quot;#%E6%B3%A8%E6%84%8F&quot; aria-label=&quot;注意 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;注意&lt;/h2&gt;
-&lt;p&gt;github personal page 只能把master分支当作gh-pages分支，所以不要白费劲去设置别的分支了，netlify后台配置了source分支更新的hook，travis监听的也是source分支，一改都得改&lt;/p&gt;</content:encoded></item><item><title><![CDATA[flowable工作流引擎使用入门]]></title><link>https://joeyxf.com/posts/flowable-bpm-tutorial/</link><guid isPermaLink="false">https://joeyxf.com/posts/flowable-bpm-tutorial/</guid><pubDate>Sun, 02 Dec 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;业务流程引擎（business process engine, bpm）在很多地方都有很广泛的应用，尤其是处理复杂多变的业务场景更是方便，因为对于很明确的需求可以硬编码实现业务逻辑，但是对于未知的复杂多变的业务场景，就需要上bpm了，这样能根据实际业务流程建模，从而处理更加复杂的任务&lt;/p&gt;
+&lt;p&gt;github personal page 只能把master分支当作gh-pages分支，所以不要白费劲去设置别的分支了，netlify后台配置了source分支更新的hook，travis监听的也是source分支，一改都得改&lt;/p&gt;</content:encoded></item><item><title><![CDATA[linux桌面设置]]></title><link>https://joeyxf.com/posts/linux-desktop-setup/</link><guid isPermaLink="false">https://joeyxf.com/posts/linux-desktop-setup/</guid><pubDate>Tue, 11 Dec 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;从大二开始使用 linux 系统，最早接触的系统是 ubuntu 11.10，那会儿刚买到自己的笔记本厌倦了普通的 windows 系统所以装了 ubuntu 双系统把玩，不得不说体验很好，导致接下来一直都在用 linux，直到现在物理机上只有 linux。类似话题的博客写过好几篇了，这篇当作个总结吧，之前写的零散的文章就可以删掉了&lt;/p&gt;
+&lt;h2 id=&quot;我的-linux-历程&quot;&gt;&lt;a href=&quot;#%E6%88%91%E7%9A%84-linux-%E5%8E%86%E7%A8%8B&quot; aria-label=&quot;我的 linux 历程 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;我的 linux 历程&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;11 年 3 月上大一的时候买了第一台 Acer 笔记本，一开始只有 windows 系统&lt;/li&gt;
+&lt;li&gt;11 年 10 月份左右因为沉迷游戏，觉得很羞愧开始把游戏都卸载了，并且了解到了 ubuntu 操作系统，开始安装 linux&lt;/li&gt;
+&lt;li&gt;体验各色 linux，ubuntu 11.10 unity, mint, opensuse, gentoo/funtoo, sentific linux, calculate linux, antergos, arch, netbsd, freebsd, chromeos&lt;/li&gt;
+&lt;li&gt;体验了各色桌面环境，unity, gnome3, gnome2, kde5, mate, lxde, xfce4, xmonad&lt;/li&gt;
+&lt;li&gt;安装方式经历了嵌入到 windows 之中，双系统，虚拟机，单独的系统&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;到目前为止我在一台 xps 15 9570 上面使用 arch，使用 gnome3+wayland 桌面&lt;/p&gt;
+&lt;h2 id=&quot;基础配置&quot;&gt;&lt;a href=&quot;#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE&quot; aria-label=&quot;基础配置 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;基础配置&lt;/h2&gt;
+&lt;h3 id=&quot;shell&quot;&gt;&lt;a href=&quot;#shell&quot; aria-label=&quot;shell permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;SHELL&lt;/h3&gt;
+&lt;p&gt;安装完系统之后，首先需要配置的是 fish，之前也用过 zsh，但是觉得不如 fish 好用，配置也简单，一键安装就行&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; pacman -S fish
+
+chsh -s /usr/bin/fish&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;终端&quot;&gt;&lt;a href=&quot;#%E7%BB%88%E7%AB%AF&quot; aria-label=&quot;终端 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;终端&lt;/h3&gt;
+&lt;p&gt;默认的 gnome terminal 就很好&lt;/p&gt;
+&lt;h3 id=&quot;终端复用器&quot;&gt;&lt;a href=&quot;#%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%99%A8&quot; aria-label=&quot;终端复用器 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;终端复用器&lt;/h3&gt;
+&lt;p&gt;最早的时候没概念只知道使用&lt;code class=&quot;language-text&quot;&gt;Ctrl+Alt+T&lt;/code&gt;让终端生成新的标签，后来使用了 tmux，发现功能非常强大，很提高效率&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; pacman -S tmux&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这个软件安装完了之后需要额外配置，不然默认界面非常丑&lt;/p&gt;
+&lt;h3 id=&quot;输入法&quot;&gt;&lt;a href=&quot;#%E8%BE%93%E5%85%A5%E6%B3%95&quot; aria-label=&quot;输入法 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;输入法&lt;/h3&gt;
+&lt;p&gt;最早的时候用 ibus+sunpinyin，现在用 fcitx+rime,sougou-pinyin,google-pinyin，配置比较简单但是很繁琐，linux 下的拼音输入法还是太落后了，有时间想自己写一个&lt;/p&gt;
+&lt;h3 id=&quot;代码编辑器&quot;&gt;&lt;a href=&quot;#%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8&quot; aria-label=&quot;代码编辑器 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;代码编辑器&lt;/h3&gt;
+&lt;p&gt;最早是 vim 党，后来用 emacs，现在用 code，因为 code 也是开箱即用，不需要额外配置，方便的很&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;aurman -S visual-studio-code-bin&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;浏览器&quot;&gt;&lt;a href=&quot;#%E6%B5%8F%E8%A7%88%E5%99%A8&quot; aria-label=&quot;浏览器 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;浏览器&lt;/h3&gt;
+&lt;p&gt;最早的时候 linux 内置的浏览器只有 firefox，后来发现 chromium 支持也很好，所以现在一直在用 chromium，因为可以使用谷歌帐号同步信息&lt;/p&gt;
+&lt;h3 id=&quot;非对称加密&quot;&gt;&lt;a href=&quot;#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86&quot; aria-label=&quot;非对称加密 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;非对称加密&lt;/h3&gt;
+&lt;p&gt;我使用 ed25519 的加密算法生成的密钥对，我用这对密钥来进行ssh身份认证，git也配置了自动签名，也是用的这对密钥&lt;/p&gt;
+&lt;h2 id=&quot;性能优化&quot;&gt;&lt;a href=&quot;#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96&quot; aria-label=&quot;性能优化 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;性能优化&lt;/h2&gt;
+&lt;h3 id=&quot;挂起与休眠&quot;&gt;&lt;a href=&quot;#%E6%8C%82%E8%B5%B7%E4%B8%8E%E4%BC%91%E7%9C%A0&quot; aria-label=&quot;挂起与休眠 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;挂起与休眠&lt;/h3&gt;
+&lt;p&gt;这个特性可以节省很多电量，但是需要额外的配置，首先一个就是要配置一个比ram稍大的swap分区，我目前是32G的内存，配置了34G的swap，在配置swap的时候要注意不要把swap配置到root分区的左边，这样不好做未来的扩容，最好是把swap放到整个硬盘的最右边。然后配置hibernate，需要配置grub指定resume分区，并且给cpio加上resume的hook。配置完之后编辑 &lt;code class=&quot;language-text&quot;&gt;/etc/systemd/sleep.conf&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[Sleep]
+AllowSuspend=yes
+AllowHibernation=yes
+AllowSuspendThenHibernate=yes
+AllowHybridSleep=yes
+HibernateDelaySec=180min
+SuspendMode=suspend
+SuspendState=disk
+HibernateMode=suspend
+HibernateState=disk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这样就省电了，可以通过 &lt;code class=&quot;language-text&quot;&gt;sudo systemctl suspend&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;sudo systemctl hibernate&lt;/code&gt; 测试挂起和休眠&lt;/p&gt;
+&lt;h3 id=&quot;使用nvidia-gpu&quot;&gt;&lt;a href=&quot;#%E4%BD%BF%E7%94%A8nvidia-gpu&quot; aria-label=&quot;使用nvidia gpu permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;使用nvidia GPU&lt;/h3&gt;
+&lt;p&gt;最早为了省电是把gpu禁用了，但是后来发现把这块1050Ti的GPU禁用掉太浪费了，启用的话可以用cuda来做计算，或者可以配置本地的软件使用gpu，提高性能。目前我是设置是开机默认禁用nvidia，关机的时候也自动把nvidia关掉。从arch wiki上面找了2个自动启用gpu和自动关闭gpu的脚本，按需使用&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; enablegpu.sh
+&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; disablegpu.sh
+
+lsmod &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;grep&lt;/span&gt; nvidia &lt;span class=&quot;token comment&quot;&gt;# 查询是否正确加载了驱动&lt;/span&gt;
+nvidia-smi &lt;span class=&quot;token comment&quot;&gt;# nvidia 的命令行控制面板，显示当前显存使用情况等&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;测试了简单的cuda程序，以及安装测试了gpu版本的tensorflow，确实速度很快，但是很遗憾截止目前（2019-07-08），wayland, chromium, virtualbox都还不支持nvidia显卡&lt;/p&gt;
+&lt;h3 id=&quot;使用super键切换工作区&quot;&gt;&lt;a href=&quot;#%E4%BD%BF%E7%94%A8super%E9%94%AE%E5%88%87%E6%8D%A2%E5%B7%A5%E4%BD%9C%E5%8C%BA&quot; aria-label=&quot;使用super键切换工作区 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;使用super键切换工作区&lt;/h3&gt;
+&lt;p&gt;这是一个gnome的bug，&lt;a href=&quot;https://gitlab.gnome.org/GNOME/gnome-shell/issues/1250&quot;&gt;https://gitlab.gnome.org/GNOME/gnome-shell/issues/1250&lt;/a&gt;，新版本已经修复了，如把本地遇到这个bug要通过&lt;code class=&quot;language-text&quot;&gt;dconf-editor&lt;/code&gt;重置这几个按键，或者根据issue里面的方式使用一个脚本更新&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;1&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;9&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt; gsettings &lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;org.gnome.shell.keybindings&quot;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;switch-to-application-&lt;span class=&quot;token variable&quot;&gt;$i&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;[]&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;优化rime输入法&quot;&gt;&lt;a href=&quot;#%E4%BC%98%E5%8C%96rime%E8%BE%93%E5%85%A5%E6%B3%95&quot; aria-label=&quot;优化rime输入法 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;优化rime输入法&lt;/h3&gt;
+&lt;p&gt;自定义词库，配置颜文字&lt;/p&gt;
+&lt;h3 id=&quot;更换网卡&quot;&gt;&lt;a href=&quot;#%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1&quot; aria-label=&quot;更换网卡 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;更换网卡&lt;/h3&gt;
+&lt;p&gt;使用intel AX200，5.1以上内核不需要额外安装驱动 &lt;a href=&quot;https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi&quot;&gt;https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;连接vpn&quot;&gt;&lt;a href=&quot;#%E8%BF%9E%E6%8E%A5vpn&quot; aria-label=&quot;连接vpn permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;连接vpn&lt;/h2&gt;
+&lt;p&gt;用过pptp, openvpn，这2者都算是标准的vpn协议，最近要用北大的vpn，使用的是第三方的某种小众vpn协议，费了一番手脚，最后用&lt;code class=&quot;language-text&quot;&gt;openconnect&lt;/code&gt;这个软件成功连上了&lt;/p&gt;</content:encoded></item><item><title><![CDATA[使用azure devops]]></title><link>https://joeyxf.com/posts/azure-devops-tutorial/</link><guid isPermaLink="false">https://joeyxf.com/posts/azure-devops-tutorial/</guid><pubDate>Thu, 06 Dec 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;介绍一下如何使用 azure devops pipeline 实现自己的 CI/CD&lt;/p&gt;
+&lt;h2 id=&quot;整体步骤&quot;&gt;&lt;a href=&quot;#%E6%95%B4%E4%BD%93%E6%AD%A5%E9%AA%A4&quot; aria-label=&quot;整体步骤 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;整体步骤&lt;/h2&gt;
+&lt;h3 id=&quot;注册账号&quot;&gt;&lt;a href=&quot;#%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7&quot; aria-label=&quot;注册账号 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;注册账号&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;注册 azure.com 的账号&lt;/li&gt;
+&lt;li&gt;开通 devops 服务&lt;/li&gt;
+&lt;li&gt;访问 &lt;a href=&quot;https://dev.azure.com&quot;&gt;https://dev.azure.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;创建组织&lt;/li&gt;
+&lt;li&gt;创建项目&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;创建-build-pipeline&quot;&gt;&lt;a href=&quot;#%E5%88%9B%E5%BB%BA-build-pipeline&quot; aria-label=&quot;创建 build pipeline permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;创建 build pipeline&lt;/h3&gt;
+&lt;p&gt;用于CI使用，会自动生成一个yml文件&lt;/p&gt;
+&lt;h3 id=&quot;创建-deploy-pipeline&quot;&gt;&lt;a href=&quot;#%E5%88%9B%E5%BB%BA-deploy-pipeline&quot; aria-label=&quot;创建 deploy pipeline permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;创建 deploy pipeline&lt;/h3&gt;
+&lt;p&gt;部署的时候用，基本流程是&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在azure管理后台创建一个部署组&lt;/li&gt;
+&lt;li&gt;把这个部署组关联指定的机器，在第一步的时候会生成一段命令，粘贴到自己的部署服务器上就行&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[flowable工作流引擎使用入门]]></title><link>https://joeyxf.com/posts/flowable-bpm-tutorial/</link><guid isPermaLink="false">https://joeyxf.com/posts/flowable-bpm-tutorial/</guid><pubDate>Sun, 02 Dec 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;业务流程引擎（business process engine, bpm）在很多地方都有很广泛的应用，尤其是处理复杂多变的业务场景更是方便，因为对于很明确的需求可以硬编码实现业务逻辑，但是对于未知的复杂多变的业务场景，就需要上bpm了，这样能根据实际业务流程建模，从而处理更加复杂的任务&lt;/p&gt;
 &lt;p&gt;bpm和workflow engine有相似之处，但是bpm偏向于处理大规模业务逻辑，而workflow engine比较适合处理单一工作流，因为实际业务中经常是多条工作流交织在一起，所以还是bpm比较强大。最近因为工作原因调研了一下这个领域，有点收获做个笔记&lt;/p&gt;
 &lt;h2 id=&quot;开源的bpm套件&quot;&gt;&lt;a href=&quot;#%E5%BC%80%E6%BA%90%E7%9A%84bpm%E5%A5%97%E4%BB%B6&quot; aria-label=&quot;开源的bpm套件 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;开源的bpm套件&lt;/h2&gt;
 &lt;ul&gt;
