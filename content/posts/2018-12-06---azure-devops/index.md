@@ -1,6 +1,8 @@
 ---
 title: 使用azure devops
 slug: "/posts/azure-devops-tutorial/"
+template: "post"
+date: "2018-12-06"
 category: "Web"
 tags:
   - "Web"

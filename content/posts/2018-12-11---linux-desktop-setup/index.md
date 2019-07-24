@@ -2,6 +2,7 @@
 title: linux桌面设置
 slug: "/posts/linux-desktop-setup/"
 date: "2018-12-11"
+template: "post"
 category: "Linux"
 tags:
   - "Linux"
@@ -111,3 +112,11 @@ for i in {1..9}; do gsettings set "org.gnome.shell.keybindings" "switch-to-appli
 ### 优化rime输入法
 
 自定义词库，配置颜文字
+
+### 更换网卡
+
+使用intel AX200，5.1以上内核不需要额外安装驱动 [https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi](https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi)
+
+## 连接vpn
+
+用过pptp, openvpn，这2者都算是标准的vpn协议，最近要用北大的vpn，使用的是第三方的某种小众vpn协议，费了一番手脚，最后用`openconnect`这个软件成功连上了
