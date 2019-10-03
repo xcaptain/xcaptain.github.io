@@ -77,6 +77,7 @@ superset内置了一个很强大的`SQL Lab`，在这里可以调试自己的sql
 最后我给官方提的补丁见[https://github.com/apache/incubator-superset/pull/7795](https://github.com/apache/incubator-superset/pull/7795)，很简单很清晰的改动，但还没有被合并进去。为了让我自己的服务器体验最新的补丁，我直写修改了docker容器里的代码，非常机智，这样就不用等上游合并了
 
 ```shell
+docker exec -it -u 0 container_id /bin/bash # 以root身份执行shell
 docker cp 5ede569d1a0a:/usr/local/lib/python3.6/site-packages/superset/viz.py .
 docker cp 5ede569d1a0a:/etc/superset/superset-config.py .
 ```

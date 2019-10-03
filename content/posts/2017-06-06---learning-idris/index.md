@@ -94,7 +94,7 @@ function cut_str($str, $start, $length)
 
 用idris重写一下上面那个cut_str方法
 
-```idris
+```haskell
 cut_str : (index : Nat) -> (len : Nat) -> (subject : String) -> String
 cut_str = substr
 ```
