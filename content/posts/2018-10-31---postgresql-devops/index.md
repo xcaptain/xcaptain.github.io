@@ -1,6 +1,8 @@
 ---
 title: postgresql运维
+template: post
 draft: false
+date: "2018-10-31"
 slug: "/posts/postgresql-devops/"
 category: "Web"
 tags:
@@ -40,6 +42,23 @@ tags:
 3.  创建数据库
 
     `create database demodb`
+
+用户管理其实比较重要，有时候我们想创建只读账号给一些业务使用，创建步骤如下：
+
+```sql
+CREATE USER readonly WITH ENCRYPTED PASSWORD 'readonly';
+GRANT USAGE ON SCHEMA public to readonly;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO readonly;
+
+GRANT CONNECT ON DATABASE foo to readonly;
+\c foo
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO readonly;
+GRANT USAGE ON SCHEMA public to readonly;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO readonly;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly;
+```
+
+还有一种方法是创建一个只读的角色，然后把用户添加到这个角色中
 
 ## 触发器
 
@@ -105,11 +124,57 @@ select comment_id, count(comment_id) filter (where dir=1) as up_votes, count(com
 
 ```
 
-## Go语言驱动
+## daterange type
 
-使用`libpq`来连接，dsn可以是:
+在做一些对账结算业务的时候会遇到有些汇率在一段时间内对应一部分数据，这种场景用标准的数据结构很难表示，但是postgres的daterange数据类型很好的解决了这个问题，具体用法参见[https://tapoueh.org/blog/2018/04/postgresql-data-types-ranges/](https://tapoueh.org/blog/2018/04/postgresql-data-types-ranges/)，目前在我的业务中涉及到和合作厂商分账，不同厂商不同时间分成比例不同，使用这个类型又好又快的解决了我的问题
 
-`DSN=postgres://myappuser:myuserpassword@127.0.0.1/demodb?sslmode=disable`
+## with 语句
+
+Postgres和sql server都支持with 语句，即可以把一条sql查询的结果临时保存起来，这样做的好处是在编写复杂的sql的时候不需要写很多复杂的嵌套，类似于把sql平铺了，分享一条很巧妙的计算留存的sql，用到了with
+
+```sql
+ with user_register as
+    (select t2.user_id as user_id,
+            t2.dt as register_day
+     from
+         (select user_id,
+                 min(date(created_at)) as dt
+          from user_login_logs
+          group by user_id) as t2
+     group by t2.user_id,
+              t2.dt),
+      user_cohort as
+    (select l.user_id,
+            r.register_day,
+            EXTRACT(DAY
+                    FROM l.created_at - r.register_day::date) as cohort_day
+     from user_login_logs as l
+     left join user_register as r on l.user_id=r.user_id
+     group by l.user_id,
+              r.register_day,
+              cohort_day)
+select register_day,
+       cohort_day::int,
+       count(distinct user_id) as user_num
+from user_cohort
+where cohort_day >= 0
+group by register_day,
+         cohort_day;
+```
+
+## docker 化
+
+待定
+
+## 版本升级
+
+目前我们用的版本是10，打算直接上12，到时候补上升级经验
+
+## 主从同步
+
+待定
+
+## 配置
 
 在这里要注意postgresql支持本地linux内核授权和自己数据库内授权，按照`/etc/postgresql/10/main/pg_hba.conf` 中的配置
 
