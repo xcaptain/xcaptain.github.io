@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Joey的博客]]></title><description><![CDATA[每天进步一点点]]></description><link>https://joeyxf.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 05 May 2020 16:27:19 GMT</lastBuildDate><item><title><![CDATA[不同语言锁的实现]]></title><description><![CDATA[在并发的场景中我们经常要用到锁来避免资源竞争，不同的语言有不同的实现，比如说rust是调用操作系统的接口，Go是自己实现了一套用户态的锁，至于java就更多了]]></description><link>https://joeyxf.com/posts/thread-and-lock</link><guid isPermaLink="false">https://joeyxf.com/posts/thread-and-lock</guid><pubDate>Sat, 02 May 2020 20:51:00 GMT</pubDate><content:encoded>&lt;p&gt;本文将先介绍 Wait-free 和 Lock-free 算法，但是在有些场合必须要使用 lock，所以再讨论下各种语言标准库 lock 的实现，最后会探索下分布式锁的一些想法。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Joey的博客]]></title><description><![CDATA[每天进步一点点]]></description><link>https://joeyxf.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 05 May 2020 16:41:47 GMT</lastBuildDate><item><title><![CDATA[不同语言锁的实现]]></title><description><![CDATA[在并发的场景中我们经常要用到锁来避免资源竞争，不同的语言有不同的实现，比如说rust是调用操作系统的接口，Go是自己实现了一套用户态的锁，至于java就更多了]]></description><link>https://joeyxf.com/posts/thread-and-lock</link><guid isPermaLink="false">https://joeyxf.com/posts/thread-and-lock</guid><pubDate>Sat, 02 May 2020 20:51:00 GMT</pubDate><content:encoded>&lt;p&gt;本文将先介绍 Wait-free 和 Lock-free 算法，但是在有些场合必须要使用 lock，所以再讨论下各种语言标准库 lock 的实现，最后会探索下分布式锁的一些想法。&lt;/p&gt;
 &lt;p&gt;首先要明确一点如果一个程序是单线程执行的，那肯定没有资源竞争(data race)，因为这个线程是顺序往前推进的，所谓的资源竞争只发生在多线程场景。所以像 redis 就没有数据竞争，因为只有一个线程在读写内存。&lt;/p&gt;
 &lt;h2 id=&quot;wait-free&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#wait-free&quot; aria-label=&quot;wait free permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Wait-free&lt;/h2&gt;
 &lt;p&gt;那么在多线程场景如何处理资源竞争呢，首先介绍 Wait-free 算法，这个算法是一个很强的并发算法，就好比在一个十字路口每辆车都高速驶过，既不减速也不停下来等红绿灯但是决不会发生交通事故。听起来非常神奇，是怎么做到的呢，这里要引入原子操作(atomic)这一概念，如果多个线程对一个变量的访问是原子性的，那就可以不用加锁也不用等待一个线程访问结束，因为对这个变量的读写是用一条 CPU 指令来完成的，所以如果 2 个线程一读一写，到底是先读后写还是先写后读不重要，只要不会是这个变量读到一半，剩下一半被另一个线程改了就行。&lt;/p&gt;
@@ -29,37 +29,37 @@
               4&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;为什么会出现第一种分叉的情况呢，就是因为把一个元素拼接到队列中要 2 步操作，第一步是让 3 指向 2,第二步是把队列的队尾指针指向 3,在第一步的时候很可能 3、4 都指向 2 了。要避免这种情况就得把这两步合并为一步来做，这时候又要用到一个原子操作的原语&lt;code class=&quot;language-text&quot;&gt;atomic_compare_exchange&lt;/code&gt;，以这个图为例，先通过&lt;code class=&quot;language-text&quot;&gt;atomic_compare_exchange&lt;/code&gt;检测到 2 和 3 不相等，那么就执行把 3 拼到 2 后面的操作，这时候另一个线程想把 4 拼到队尾，他通过循环执行&lt;code class=&quot;language-text&quot;&gt;atomic_compare_exchange&lt;/code&gt;检测到队尾的值现在是 3,和自身不相等，就把 4 拼到 3 后面&lt;/p&gt;
 &lt;p&gt;这个 atomic&lt;em&gt;compare&lt;/em&gt;exchange 也就是鼎鼎大名的&lt;code class=&quot;language-text&quot;&gt;CAS&lt;/code&gt; compare and swap。rust中默认就用的C++的这个&lt;code class=&quot;language-text&quot;&gt;atomic_compare_exchange&lt;/code&gt;，但是Go的代码不太一样，具体还是在 &lt;code class=&quot;language-text&quot;&gt;src/sync/atomic/doc.go&lt;/code&gt;，但是方法命令类似 &lt;code class=&quot;language-text&quot;&gt;CompareAndSwapInt32&lt;/code&gt;，具体的实现可以追溯到&lt;code class=&quot;language-text&quot;&gt;src/runtime/internal/atomic&lt;/code&gt;这个目录下的&lt;code class=&quot;language-text&quot;&gt;atomic_amd64.go&lt;/code&gt;中的&lt;code class=&quot;language-text&quot;&gt;Cas64&lt;/code&gt;之类的方法，不过这个go文件只包含方法定义，具体的实现在一个汇编文件中，叫&lt;code class=&quot;language-text&quot;&gt;asm_amd64.s&lt;/code&gt;，具体可以贴一段代码看看&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;asm&quot;&gt;&lt;pre class=&quot;language-asm&quot;&gt;&lt;code class=&quot;language-asm&quot;&gt;// bool Cas(int32 *val, int32 old, int32 new)
-// Atomically:
-//	if(*val == old){
-//		*val = new;
-//		return 1;
-//	} else
-//		return 0;
-TEXT runtime∕internal∕atomic·Cas(SB),NOSPLIT,$0-17
-	MOVQ	ptr+0(FP), BX
-	MOVL	old+8(FP), AX
-	MOVL	new+12(FP), CX
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;nasm&quot;&gt;&lt;pre class=&quot;language-nasm&quot;&gt;&lt;code class=&quot;language-nasm&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; bool Cas(int32 &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;val, int32 old, int32 new)
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; Atomically:
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;	if(&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; old){
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;		&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; new&lt;span class=&quot;token comment&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;		return &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token comment&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;	} else
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;		return &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token comment&quot;&gt;;&lt;/span&gt;
+TEXT runtime∕internal∕atomic·Cas(SB),NOSPLIT,&lt;span class=&quot;token number&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;17&lt;/span&gt;
+	MOVQ	ptr&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;(FP), &lt;span class=&quot;token register variable&quot;&gt;BX&lt;/span&gt;
+	MOVL	old&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;(FP), &lt;span class=&quot;token register variable&quot;&gt;AX&lt;/span&gt;
+	MOVL	new&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;(FP), &lt;span class=&quot;token register variable&quot;&gt;CX&lt;/span&gt;
 	LOCK
-	CMPXCHGL	CX, 0(BX)
-	SETEQ	ret+16(FP)
+	CMPXCHGL	&lt;span class=&quot;token register variable&quot;&gt;CX&lt;/span&gt;, &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;(&lt;span class=&quot;token register variable&quot;&gt;BX&lt;/span&gt;)
+	SETEQ	ret&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;16&lt;/span&gt;(FP)
 	RET
 
-// bool	runtime∕internal∕atomic·Cas64(uint64 *val, uint64 old, uint64 new)
-// Atomically:
-//	if(*val == *old){
-//		*val = new;
-//		return 1;
-//	} else {
-//		return 0;
-//	}
-TEXT runtime∕internal∕atomic·Cas64(SB), NOSPLIT, $0-25
-	MOVQ	ptr+0(FP), BX
-	MOVQ	old+8(FP), AX
-	MOVQ	new+16(FP), CX
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; bool	runtime∕internal∕atomic·Cas64(uint64 &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;val, uint64 old, uint64 new)
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; Atomically:
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;	if(&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;old){
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;		&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;val &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; new&lt;span class=&quot;token comment&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;		return &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token comment&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;	} else {
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;		return &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token comment&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;	}
+TEXT runtime∕internal∕atomic·Cas64(SB), NOSPLIT, &lt;span class=&quot;token number&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;25&lt;/span&gt;
+	MOVQ	ptr&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;(FP), &lt;span class=&quot;token register variable&quot;&gt;BX&lt;/span&gt;
+	MOVQ	old&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;(FP), &lt;span class=&quot;token register variable&quot;&gt;AX&lt;/span&gt;
+	MOVQ	new&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;16&lt;/span&gt;(FP), &lt;span class=&quot;token register variable&quot;&gt;CX&lt;/span&gt;
 	LOCK
-	CMPXCHGQ	CX, 0(BX)
-	SETEQ	ret+24(FP)
+	CMPXCHGQ	&lt;span class=&quot;token register variable&quot;&gt;CX&lt;/span&gt;, &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;(&lt;span class=&quot;token register variable&quot;&gt;BX&lt;/span&gt;)
+	SETEQ	ret&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;24&lt;/span&gt;(FP)
 	RET&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;我是看不懂这段代码，汇编里咋还跑出了&lt;code class=&quot;language-text&quot;&gt;LOCK&lt;/code&gt;这个指令了，难道说所谓的Lock-free算法没有在内存设锁但是在CPU上有锁？费解&lt;/p&gt;
 &lt;h2 id=&quot;锁&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%E9%94%81&quot; aria-label=&quot;锁 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;锁&lt;/h2&gt;
