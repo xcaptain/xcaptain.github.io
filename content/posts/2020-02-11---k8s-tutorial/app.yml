@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta2
+kind: apps/v1beta2/Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: my-repo/journal-server:v1-abcde
+        imagePullPolicy: IfNotPresent
+        name: frontend
+        resources:
+          request:
+            cpu: "1.0"
+            memory: "1G"
+          limits:
+            cpu: "1.0"
+            memory: "1G"

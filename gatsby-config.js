@@ -139,6 +139,7 @@ module.exports = {
       options: {
         plugins: [
           'gatsby-remark-relative-images',
+          'gatsby-remark-graphviz',
           {
             resolve: 'gatsby-remark-katex',
             options: {

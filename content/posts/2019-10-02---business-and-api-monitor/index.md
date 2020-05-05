@@ -51,6 +51,20 @@ server {
 [nginx log config][1]
 有个有意思的点，在配置一像素gif图的时候可以用 <em>empty_gif</em> ，这样访问的时候是内存操作而不需要去硬盘读取文件，这种方式实现的统计接口能达到很高的QPS，因为nginx实在是太快了
 
+有时候前端为了性能在上报统计数据的时候会使用浏览器的beacon接口，这个接口只能发送post请求，我们知道默认静态文件是不支持post请求的，会返回405方法错误，为了解决这个问题需要把post重定向为get，可以使用如下的配置：
+
+```nginx
+location /a.gif {
+	empty_gif;
+	etag off;
+	add_header Pragma no-cache;
+	add_header Cache-Control "private, no-cache, no-store, must-revalidate";
+	error_page 405 =200 $uri$is_args$args;
+}
+```
+
+最关键的是下面那条重写语句，检测到405错误会把请求重写为GET，要注意把args也带上，不然日志记录会丢失这个字段
+
 [1]: http://nginx.org/en/docs/http/ngx_http_log_module.html#example
 
 ## vector
@@ -66,6 +80,8 @@ end
 ```
 
 vector目前还处于很初级的阶段，很多时候要自己改代码重新编译，因为官方不一定会采用你提交的pull request，要注意因为vector用到一些C的动态库，所以当想要编译静态库的时候还不能简单用musl编译，需要按照官方的打包脚本来做，曾经我花了很多时间去尝试编译，最后放弃了
+
+要注意配置clickhouse sink的时候，一定不要传入不存在的字段，不然会写入失败
 
 * 给他们提新功能的issue：[https://github.com/timberio/vector/issues/867](https://github.com/timberio/vector/issues/867)
 * 编译时遇到的问题：[https://github.com/timberio/vector/issues/877](https://github.com/timberio/vector/issues/877)

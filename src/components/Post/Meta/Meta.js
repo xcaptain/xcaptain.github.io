@@ -1,5 +1,6 @@
 import React from 'react';
-import moment from 'moment';
+// stupid issue https://github.com/moment/moment/issues/4505
+import moment from 'moment/moment';
 import styles from './Meta.module.scss';
 
 const Meta = ({ date }) => (
