@@ -32,10 +32,10 @@
 <url> <loc>https://joeyxf.com/posts/learn-git/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/migrate-a-discuz-site/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-coding-style/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/php-use-rabbitmq/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/switch-to-hakyll/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/create-composer-package/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-guzzle-http-client/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/my-chromebook-review/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/like-and-favorite-design/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/recursive-remove-space/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-multi-process-task/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -58,7 +58,7 @@
 <url> <loc>https://joeyxf.com/posts/vscode-debug-tutorial</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/business-and-api-monitor</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/thread-and-lock</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/php-use-rabbitmq/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/my-chromebook-review/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/rust-websocket-server/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/learning-idris/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
