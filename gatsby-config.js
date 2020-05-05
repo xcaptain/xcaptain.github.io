@@ -1,11 +1,7 @@
 'use strict';
 
-require('dotenv').config();
-
 const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
-
-const transformer = require('./src/utils/algolia');
 
 const query = `{
   allMarkdownRemark( filter: { fields: { slug: { ne: null } } }) {
@@ -26,13 +22,6 @@ const query = `{
   }
 }`;
 
-const queries = [
-  {
-    query,
-    transformer: ({ data }) => data.allMarkdownRemark.edges.reduce(transformer, [])
-  }
-];
-
 module.exports = {
   siteMetadata: {
     url: siteConfig.url,
@@ -42,14 +31,6 @@ module.exports = {
     disqusShortname: siteConfig.disqusShortname,
     menu: siteConfig.menu,
     author: siteConfig.author,
-    algolia: {
-      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : '',
-      searchOnlyApiKey: process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        ? process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        : '',
-      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : ''
-    },
-
   },
   plugins: [
     {
@@ -239,19 +220,5 @@ module.exports = {
         }
       }
     },
-    {
-      resolve: 'gatsby-plugin-algolia',
-      options: {
-        appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : '',
-        apiKey: process.env.ALGOLIA_ADMIN_API_KEY
-          ? process.env.ALGOLIA_ADMIN_API_KEY
-          : '',
-        indexName: process.env.ALGOLIA_INDEX_NAME
-          ? process.env.ALGOLIA_INDEX_NAME
-          : '',
-        queries,
-        chunkSize: 10000 // default: 1000
-      }
-    }
   ]
 };

@@ -29,10 +29,6 @@ module.exports = {
       label: '标签',
       path: '/tags'
     },
-    {
-      label: '搜索',
-      path: '/search'
-    }
   ],
   author: {
     name: 'Joey Xie',

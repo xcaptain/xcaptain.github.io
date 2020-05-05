@@ -64,7 +64,7 @@ Lock-free 是比 wait-free 更弱一点的算法，意思就是当线程 A 在�
 
 这个 atomic_compare_exchange 也就是鼎鼎大名的`CAS` compare and swap。rust中默认就用的C++的这个`atomic_compare_exchange`，但是Go的代码不太一样，具体还是在 `src/sync/atomic/doc.go`，但是方法命令类似 `CompareAndSwapInt32`，具体的实现可以追溯到`src/runtime/internal/atomic`这个目录下的`atomic_amd64.go`中的`Cas64`之类的方法，不过这个go文件只包含方法定义，具体的实现在一个汇编文件中，叫`asm_amd64.s`，具体可以贴一段代码看看
 
-```asm
+```nasm
 // bool Cas(int32 *val, int32 old, int32 new)
 // Atomically:
 //	if(*val == old){
