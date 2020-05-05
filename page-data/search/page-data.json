@@ -1,1 +1,1 @@
-{"componentChunkName":"component---src-templates-search-template-js","path":"/search","webpackCompilationHash":"d94862b0a5cb0cab2c6f","result":{"data":{"site":{"siteMetadata":{"algolia":{"appId":"","searchOnlyApiKey":"","indexName":""}}}},"pageContext":{"isCreatedByStatefulCreatePages":false}}}
+{"componentChunkName":"component---src-templates-search-template-js","path":"/search","result":{"data":{"site":{"siteMetadata":{"algolia":{"appId":"","searchOnlyApiKey":"","indexName":""}}}},"pageContext":{}}}

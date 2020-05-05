@@ -32,7 +32,6 @@
 <url> <loc>https://joeyxf.com/posts/learn-git/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/migrate-a-discuz-site/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-coding-style/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/php-use-rabbitmq/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/switch-to-hakyll/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/create-composer-package/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-guzzle-http-client/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -40,7 +39,7 @@
 <url> <loc>https://joeyxf.com/posts/like-and-favorite-design/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/recursive-remove-space/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-multi-process-task/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/rust-websocket-server/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/php-monkey-patch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/headless-chrome-for-web-scraping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/rebuild-discourse/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/elasticsearch-learning-basics/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -58,9 +57,11 @@
 <url> <loc>https://joeyxf.com/posts/setup-nginx-tcp-ssl-proxy</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/vscode-debug-tutorial</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/business-and-api-monitor</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/php-monkey-patch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/thread-and-lock</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/php-use-rabbitmq/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/rust-websocket-server/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/learning-idris/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/algorithms</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/chrome</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -142,4 +143,5 @@
 <url> <loc>https://joeyxf.com/page/11</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/page/12</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/page/13</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/page/14</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
