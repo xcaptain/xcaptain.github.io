@@ -58,9 +58,10 @@
 <url> <loc>https://joeyxf.com/posts/vscode-debug-tutorial</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/business-and-api-monitor</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/thread-and-lock</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/differential-equations</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/learning-idris/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/posts/php-monkey-patch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/posts/xps13-9360-first-eye/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/algorithms</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/chrome</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -80,6 +81,7 @@
 <url> <loc>https://joeyxf.com/tag/linux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/linux/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/linux/page/2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/tag/math</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/php</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/php/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/tag/php/page/2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -117,6 +119,7 @@
 <url> <loc>https://joeyxf.com/category/laravel</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/category/linux</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/category/linux/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://joeyxf.com/category/math</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/category/php</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/category/php/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://joeyxf.com/category/php/page/2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
